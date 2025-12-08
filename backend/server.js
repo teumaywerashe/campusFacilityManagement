@@ -10,6 +10,8 @@ app.use(
             "PUT", "DELETE", "OPTIONS"
         ],
         allowedHeaders: ["Content-Type", "token"],
+        origin: ["http://localhost:5173", /\.onrender\.com$/],
+        credentials: true,
     })
 );
 app.options("/", cors());
