@@ -1,15 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '../context/store';
-// I will include a simple internal Modal to ensure this works immediately, 
-// but you can swap it back to your './ShowImage' import.
-import { X } from 'lucide-react'; // Optional: if you have lucide-react, else use text "X"
+import { 
+  X, 
+  Filter, 
+  Calendar, 
+  CheckCircle2, 
+  Clock, 
+  AlertCircle,
+  MoreHorizontal,
+  ImageIcon
+} from 'lucide-react'; 
 
 function AdminDashboard() {
   const { getAllReports, allReports, updateTime } = useContext(StoreContext);
 
   // State
-  const [status, setStatus] = useState("All");
-  const [selectedImage, setSelectedImage] = useState(null); // Stores URL or null
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     getAllReports();
@@ -17,126 +24,176 @@ function AdminDashboard() {
 
   // Filter Logic
   const filteredReports = allReports?.filter((rep) => 
-    status === "All" ? true : rep.status.toLowerCase() === status.toLowerCase()
+    statusFilter === "All" ? true : rep.status.toLowerCase() === statusFilter.toLowerCase()
   );
 
-  // Helper for Status Colors
-  const getStatusColor = (st) => {
+  // Clean, Professional Status Colors
+  const getStatusConfig = (st) => {
     switch (st.toLowerCase()) {
-      case 'resolved': return 'bg-green-100 text-green-700 border-green-200';
-      case 'in progress': return 'bg-blue-100 text-blue-700 border-blue-200';
-      case 'pending': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
-      default: return 'bg-gray-100 text-gray-700 border-gray-200';
+      case 'resolved': 
+        return { 
+          style: 'bg-green-50 text-green-700 border-green-200 ring-green-600/20', 
+          icon: <CheckCircle2 size={14} className="mr-1.5"/>,
+          label: 'Resolved'
+        };
+      case 'in progress': 
+        return { 
+          style: 'bg-blue-50 text-blue-700 border-blue-200 ring-blue-600/20', 
+          icon: <Clock size={14} className="mr-1.5"/>, 
+          label: 'In Progress'
+        };
+      case 'pending': 
+        return { 
+          style: 'bg-orange-50 text-orange-700 border-orange-200 ring-orange-600/20', 
+          icon: <AlertCircle size={14} className="mr-1.5"/>, 
+          label: 'Action Required'
+        };
+      default: 
+        return { 
+          style: 'bg-gray-50 text-gray-600 border-gray-200 ring-gray-500/20', 
+          icon: <AlertCircle size={14} className="mr-1.5"/>, 
+          label: st 
+        };
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50 p-6 md:p-10">
+    <div className="min-h-screen ml-64 w-full bg-[#F3F4F6] font-sans text-gray-800 p-6 md:p-12">
       <div className="max-w-7xl mx-auto">
         
-        {/* Header Section */}
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 tracking-tight">Report Issues</h2>
-          <p className="text-gray-500 mt-2">Manage and track user submitted reports.</p>
+        {/* --- Header Section --- */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Issue Tracker</h1>
+            <p className="text-gray-500 mt-1 text-sm">Overview of submitted user reports and evidence.</p>
+          </div>
+          
+          {/* Simple Stat */}
+          <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200">
+             <span className="text-gray-400 text-xs font-semibold uppercase tracking-wider">Total Reports</span>
+             <span className="text-xl font-bold text-gray-900">{filteredReports?.length || 0}</span>
+          </div>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-200 pb-4">
+        {/* --- Filter Tabs --- */}
+        <div className="flex items-center gap-1 mb-8 overflow-x-auto pb-2 border-b border-gray-200">
           {['All', 'Pending', 'In Progress', 'Resolved'].map((tab) => (
             <button
               key={tab}
-              onClick={() => setStatus(tab)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 
-                ${status === tab 
-                  ? 'bg-gray-900 text-white shadow-md' 
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                }`}
+              onClick={() => setStatusFilter(tab)}
+              className={`
+                px-4 py-2 text-sm font-medium rounded-t-lg transition-colors relative top-[1px]
+                ${statusFilter === tab 
+                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50' 
+                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'}
+              `}
             >
               {tab}
             </button>
           ))}
         </div>
 
-        {/* Reports Grid */}
+        {/* --- Grid Layout --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredReports?.length > 0 ? (
-            filteredReports.map((rep, i) => (
-              <div 
-                key={i} 
-                className="group bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden"
-              >
-                {/* Image Section */}
-                <div className="relative h-48 w-full bg-gray-100 overflow-hidden cursor-pointer" 
-                     onClick={() => setSelectedImage(`http://localhost:3000/uploads/${rep.image}`)}>
-                  {rep.image ? (
-                    <img
-                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      src={`http://localhost:3000/uploads/${rep.image}`}
-                      alt="Report evidence"
-                    />
-                  ) : (
-                    <div className="flex items-center justify-center h-full text-gray-400">
-                      No Image Provided
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                </div>
-
-                {/* Content Section */}
-                <div className="p-5 flex-1 flex flex-col">
-                  {/* Status Badge */}
-                  <div className="mb-3">
-                    <span className={`px-2.5 py-1 rounded-md text-xs font-semibold border ${getStatusColor(rep.status)}`}>
-                      {rep.status}
-                    </span>
+            filteredReports.map((rep, i) => {
+              const config = getStatusConfig(rep.status);
+              return (
+                <div 
+                  key={i} 
+                  className="bg-white rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 flex flex-col group overflow-hidden"
+                >
+                  {/* Card Header */}
+                  <div className="p-5 pb-3 flex justify-between items-start">
+                     <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ring-1 ring-inset ${config.style}`}>
+                        {config.icon}
+                        {config.label}
+                     </span>
+                     <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                        <MoreHorizontal size={18} />
+                     </button>
                   </div>
 
-                  <p className="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
-                    {rep.content}
-                  </p>
+                  {/* Card Content */}
+                  <div className="px-5 flex-1">
+                    <p className="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
+                      {rep.content}
+                    </p>
 
-                  {/* Footer (Timestamps) */}
-                  <div className="pt-4 border-t border-gray-100 flex justify-between items-end text-xs text-gray-500">
-                    <div>
-                      <span className="block font-medium text-gray-400 uppercase tracking-wider text-[10px]">Posted</span>
-                      {updateTime(rep.createdAt)}
-                    </div>
-                    <div className="text-right">
-                       <span className="block font-medium text-gray-400 uppercase tracking-wider text-[10px]">Updated</span>
-                       {updateTime(rep.updatedAt)}
+                    {/* Image Attachment Thumbnail */}
+                    <div 
+                      className="relative w-full h-40 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 cursor-zoom-in group-hover:border-blue-200 transition-colors"
+                      onClick={() => rep.image && setSelectedImage(`http://localhost:3000/uploads/${rep.image}`)}
+                    >
+                      {rep.image ? (
+                        <>
+                          <img 
+                            src={`http://localhost:3000/uploads/${rep.image}`} 
+                            alt="Evidence" 
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+                        </>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center h-full text-gray-400 gap-2">
+                           <ImageIcon size={20} className="opacity-50"/>
+                           <span className="text-xs">No image attached</span>
+                        </div>
+                      )}
                     </div>
                   </div>
+
+                  {/* Card Footer */}
+                  <div className="p-5 pt-4 mt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-400">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar size={12} />
+                      <span>{updateTime(rep.createdAt)}</span>
+                    </div>
+                    <span>ID: #{rep._id?.slice(-4) || 'N/A'}</span>
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
-            <div className="col-span-full text-center py-20 text-gray-400">
-              <p>No reports found for "{status}".</p>
+            // Empty State
+            <div className="col-span-full flex flex-col items-center justify-center py-24 bg-white rounded-xl border border-dashed border-gray-300">
+              <div className="p-4 bg-gray-50 rounded-full mb-3">
+                <Filter className="text-gray-400" size={24} />
+              </div>
+              <h3 className="text-gray-900 font-medium">No reports found</h3>
+              <p className="text-gray-500 text-sm mt-1">There are no {statusFilter.toLowerCase()} reports to display.</p>
             </div>
           )}
         </div>
       </div>
 
-      {/* Image Modal (Lightweight Version) */}
+      {/* --- Image Modal --- */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm p-4 animate-in fade-in duration-200"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative max-w-4xl w-full max-h-screen">
-            <button 
-              onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
-            >
-              {/* If you don't have lucide-react, replace <X /> with <span className="text-2xl font-bold">Close</span> */}
-               <span className="text-lg font-bold bg-white/20 px-3 py-1 rounded-full">Close</span>
-            </button>
-            <img 
-              src={selectedImage} 
-              alt="Full view" 
-              className="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image itself
-            />
+          <div className="relative max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+              <h3 className="font-semibold text-gray-700">Evidence View</h3>
+              <button 
+                onClick={() => setSelectedImage(null)}
+                className="p-1 rounded-full hover:bg-gray-200 transition-colors"
+              >
+                <X size={20} className="text-gray-500" />
+              </button>
+            </div>
+            
+            {/* Modal Image */}
+            <div className="p-2 bg-gray-100">
+              <img 
+                src={selectedImage} 
+                alt="Full Report" 
+                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+                onClick={(e) => e.stopPropagation()} 
+              />
+            </div>
           </div>
         </div>
       )}
