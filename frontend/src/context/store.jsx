@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 export const StoreContext = createContext();
 
 export const StoreContextProvider = ({ children }) => {
-  const url = "https://campusfacilitymanagement.onrender.com";
+  const url = import.meta.env.VITE_API_URL;
   const [report, setReport] = useState([]);
   const [allReports, setAllReports] = useState([]);
 
