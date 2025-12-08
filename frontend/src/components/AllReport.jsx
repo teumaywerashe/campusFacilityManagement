@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 function AllReport() {
-  const { getAllReports, allReports, updateTime } = useContext(StoreContext);
+  const { getAllReports, allReports,url, updateTime } = useContext(StoreContext);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -99,7 +99,7 @@ function AllReport() {
                   <div className="w-12 h-12 rounded-lg bg-gray-100 border border-gray-200 overflow-hidden relative">
                     {report.image ? (
                       <img 
-                        src={`http://localhost:3000/uploads/${report.image}`} 
+                        src={`${url}/uploads/${report.image}`} 
                         alt="Evidence" 
                         className="w-full h-full object-cover"
                       />

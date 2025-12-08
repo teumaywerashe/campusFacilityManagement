@@ -16,7 +16,7 @@ const getStatusStyles = (status) => {
 };
 
 function Dashboard() {
-  const { report, getReport, updateTime } = useContext(StoreContext);
+  const { report, getReport,url, updateTime } = useContext(StoreContext);
 
   // State for filtering
   const [status, setStatus] = useState("All");
@@ -77,14 +77,14 @@ function Dashboard() {
               <div
                 className="relative h-56 w-full bg-gray-200 overflow-hidden cursor-pointer"
                 onClick={() =>
-                  setSelectedImage(`http://localhost:3000/uploads/${rep.image}`)
+                  setSelectedImage(`${url}/uploads/${rep.image}`)
                 }
               >
                 {rep.image ? (
                   <>
                     <img
                       className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      src={`http://localhost:3000/uploads/${rep.image}`}
+                      src={`${url}/uploads/${rep.image}`}
                       alt="Report"
                     />
                     {/* Overlay on hover */}

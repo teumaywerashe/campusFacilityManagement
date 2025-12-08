@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'; 
 
 function AdminDashboard() {
-  const { getAllReports, allReports, updateTime } = useContext(StoreContext);
+  const { getAllReports, allReports,url, updateTime } = useContext(StoreContext);
 
   // State
   const [statusFilter, setStatusFilter] = useState("All");
@@ -123,12 +123,12 @@ function AdminDashboard() {
                     {/* Image Attachment Thumbnail */}
                     <div 
                       className="relative w-full h-40 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 cursor-zoom-in group-hover:border-blue-200 transition-colors"
-                      onClick={() => rep.image && setSelectedImage(`http://localhost:3000/uploads/${rep.image}`)}
+                      onClick={() => rep.image && setSelectedImage(`${url}/uploads/${rep.image}`)}
                     >
                       {rep.image ? (
                         <>
                           <img 
-                            src={`http://localhost:3000/uploads/${rep.image}`} 
+                            src={`${url}/uploads/${rep.image}`} 
                             alt="Evidence" 
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           />

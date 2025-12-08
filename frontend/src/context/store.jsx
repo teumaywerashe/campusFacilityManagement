@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 export const StoreContext = createContext();
 
 export const StoreContextProvider = ({ children }) => {
-  const url = "http://localhost:3000";
+  const url = "https://campusfacilitymanagement.onrender.com";
   const [report, setReport] = useState([]);
   const [allReports, setAllReports] = useState([]);
 
