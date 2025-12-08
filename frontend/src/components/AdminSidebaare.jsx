@@ -14,7 +14,7 @@ import {
 
 function AdminSidebar() {
   const navigate = useNavigate();
-  const { logout, getAllReports, allReports } = useContext(StoreContext);
+  const { logout, getAllReports,showSidebar,setShowSidebar, allReports } = useContext(StoreContext);
 
   // Calculate unread reports
   const unReadReports = allReports?.filter((report) => !report.isRead) || [];
@@ -32,13 +32,21 @@ function AdminSidebar() {
   const inactiveLinkClass = "text-gray-500 hover:bg-gray-100 hover:text-gray-900";
 
   return (
-    <aside className="fixed top-0 left-0 z-40 w-64 h-screen bg-white border-r border-gray-200 flex flex-col font-sans">
-      
+    <aside  className={`
+          fixed left-0 top-16 
+          h-[calc(100vh-64px)] w-64 
+          bg-gray-900 border-r border-gray-800
+          flex flex-col 
+          transition-transform duration-300 ease-in-out z-40
+          ${showSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+        `}>
+
+
       {/* --- 1. BRAND HEADER --- */}
-      <div className="h-16 flex items-center px-6 border-b border-gray-100 bg-gray-50/30">
-        <div className="flex items-center gap-2 text-blue-700">
+      <div className="h-20 shrink-0 flex items-center px-6 border-b border-gray-800 mb-2">
+        <div className="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
           <ShieldCheck size={24} strokeWidth={2.5} />
-          <span className="text-lg font-bold tracking-tight text-gray-800">Admin<span className="text-blue-600">Panel</span></span>
+          <span className="text-lg font-bold tracking-tight text-blue-600">Admin<span className="text-gray-100">Panel</span></span>
         </div>
       </div>
 
@@ -49,7 +57,7 @@ function AdminSidebar() {
           Main Menu
         </div>
 
-        <NavLink 
+        <NavLink onClick={()=>setShowSidebar(false)} 
           to="/admin/dashboard" 
           className={({ isActive }) => `${baseLinkClass} ${isActive ? activeLinkClass : inactiveLinkClass}`}
         >
@@ -57,7 +65,7 @@ function AdminSidebar() {
           <span>Dashboard</span>
         </NavLink>
 
-        <NavLink 
+        <NavLink onClick={()=>setShowSidebar(false)} 
           to="/admin/allReport" 
           className={({ isActive }) => `${baseLinkClass} ${isActive ? activeLinkClass : inactiveLinkClass}`}
         >
@@ -72,7 +80,7 @@ function AdminSidebar() {
           )}
         </NavLink>
 
-        <NavLink 
+        <NavLink onClick={()=>setShowSidebar(false)} 
           to="/admin/notification" 
           className={({ isActive }) => `${baseLinkClass} ${isActive ? activeLinkClass : inactiveLinkClass}`}
         >
@@ -84,7 +92,7 @@ function AdminSidebar() {
           Preferences
         </div>
 
-        <NavLink 
+        <NavLink onClick={()=>setShowSidebar(false)} 
           to="/admin/setting" 
           className={({ isActive }) => `${baseLinkClass} ${isActive ? activeLinkClass : inactiveLinkClass}`}
         >
@@ -94,7 +102,7 @@ function AdminSidebar() {
       </nav>
 
       {/* --- 3. PROFILE & LOGOUT FOOTER --- */}
-      <div className="p-4 border-t border-gray-200 bg-gray-50/50">
+      <div className="p-4 border-t border-gray-800 bg-gray-900/50 shrink-0">
         <div 
           onClick={() => navigate("/admin/setting")}
           className="flex items-center gap-3 p-2 rounded-xl hover:bg-white hover:shadow-sm hover:ring-1 hover:ring-gray-200 transition-all cursor-pointer group"
@@ -108,12 +116,12 @@ function AdminSidebar() {
           
           {/* User Info */}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-gray-900 truncate">Teumay</p>
+            <p className="text-sm font-semibold text-gray-100 truncate">Teumay</p>
             <p className="text-xs text-gray-500 truncate">Administrator</p>
           </div>
 
           {/* Chevron indication */}
-          <ChevronRight size={16} className="text-gray-400 group-hover:text-gray-600" />
+          <ChevronRight size={16} className="text-red-400 group-hover:text-gray-600" />
         </div>
 
         {/* Logout Button */}

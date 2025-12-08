@@ -18,7 +18,7 @@ function AdminSetting() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="min-h-screen ml-64 w-full bg-gray-50 p-6 md:p-10 font-sans text-gray-800">
+    <div className="min-h-screen ml-0 sm:ml-64 w-full bg-gray-50 p-6 md:p-10 font-sans text-gray-800">
       
       {/* --- Page Header --- */}
       <div className="max-w-4xl mx-auto mb-10">

@@ -42,7 +42,7 @@ function AllReport() {
   };
 
   return (
-    <div className="min-h-screen ml-64 w-full bg-gray-50 p-6 md:p-10 font-sans text-gray-800">
+    <div className="min-h-screen ml-0 sm:ml-64 w-full bg-gray-50 p-6 md:p-10 font-sans text-gray-800">
       
       {/* --- Header Section --- */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -76,7 +76,7 @@ function AllReport() {
       <div className="max-w-7xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         
         {/* Table Header */}
-        <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+        <div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-200 text-xs font-semibold text-gray-500 uppercase tracking-wider">
           <div className="col-span-1">Evidence</div>
           <div className="col-span-4">Report Details</div>
           <div className="col-span-2">Status</div>
@@ -90,7 +90,7 @@ function AllReport() {
             filteredReports.map((report, i) => (
               <div 
                 key={i} 
-                className={`grid grid-cols-12 gap-4 px-6 py-4 items-center transition-colors hover:bg-gray-50 group
+                className={`grid grid-cols-1 border border-black mb-2 sm:grid-cols-12 gap-4 px-6 py-4 items-center transition-colors hover:bg-gray-50 group
                   ${!report.isRead ? 'bg-blue-50/30' : ''}`}
               >
                 
