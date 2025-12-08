@@ -84,7 +84,7 @@ function NewReport() {
   };
 
   return (
-    <div className="min-h-screen ml-64 w-full bg-gray-50 flex items-center justify-center p-6 font-sans">
+    <div className="min-h-screen ml-64 sm:ml-0 w-full bg-gray-50 flex items-center justify-center p-6 font-sans">
       
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 flex flex-col md:flex-row">
         
