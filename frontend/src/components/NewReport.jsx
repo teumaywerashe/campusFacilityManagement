@@ -84,7 +84,7 @@ function NewReport() {
   };
 
   return (
-    <div className="min-h-screen ml-64 sm:ml-0 w-full bg-gray-50 flex items-center justify-center p-6 font-sans">
+    <div className="min-h-screen  sm:ml-64ml-0 w-full bg-gray-50 flex items-center justify-center p-6 font-sans">
       
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 flex flex-col md:flex-row">
         
@@ -159,7 +159,7 @@ function NewReport() {
         </div>
 
         {/* --- RIGHT SIDE: Image Upload Area --- */}
-        <div className="w-full md:w-2/5 bg-gray-50 p-8 border-l border-gray-100 flex flex-col justify-center items-center relative">
+        <div className="w-full md:w-2/5 bg-gray-50 p-8 border-l border-gray-100 hidden sm:flex flex-col justify-center items-center relative">
           
           <div className="absolute top-6 right-6 text-gray-300">
              <MapPin size={100} className="opacity-10 rotate-12" />
