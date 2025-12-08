@@ -25,7 +25,7 @@ function Notifications() {
   };
 
   return (
-    <div className="min-h-screen ml-64 sm:ml-0 w-full bg-gray-50/50 p-4 md:p-8 font-sans">
+    <div className="min-h-screen sm:ml-64 ml-0 w-full bg-gray-50/50 p-4 md:p-8 font-sans">
       <div className="max-w-3xl mx-auto">
         
         {/* Header Section */}
