@@ -22,6 +22,10 @@ function Sidebar() {
   } = useContext(StoreContext);
 
   // Filter unread notifications
+
+  const handleLogout = () => {
+    logout();
+  };
   const unReadNotification = notifications.filter((n) => !n.isRead);
   const count = unReadNotification.length;
 
@@ -124,7 +128,7 @@ function Sidebar() {
         </div>
 
         {/* 3. Bottom User Profile Section (Fixed at bottom) */}
-        <div className="p-4 border-t border-gray-800 bg-gray-900/50 shrink-0">
+        <div className="p-4 border-t border-gray-800 bg-gray-900/50 shrik-0">
           <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-800 transition-colors group cursor-pointer">
             {/* Avatar */}
             <img
@@ -139,35 +143,31 @@ function Sidebar() {
               className="flex-1 min-w-0"
               onClick={() => navigate("/user/setting")}
             >
-              <p className="text-sm font-semibold text-white truncate">
+              <p className="text-sm font-semibold capitalize text-white truncate">
                 Teumay
               </p>
-              <p className="text-xs text-gray-500 truncate">Student Account</p>
+              <p className="text-xs text-gray-500 truncate">user Account</p>
             </div>
 
             {/* Logout Button */}
             <button
-              onClick={logout}
               className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all"
-              title="Logout"
+              // title="Logout"
             >
               <LogOut size={18} />
             </button>
           </div>
+          <button
+            onClick={handleLogout} type='button'
+            className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 hover:text-red-700 transition-colors"
+          >
+            <LogOut size={16} />
+            <span className="text-[red]">Sign Out</span>
+          </button>
         </div>
       </div>
 
-      {/* 
-         OPTIONAL: Mobile Overlay 
-         This darkens the rest of the screen on mobile when sidebar is open 
-      */}
-      {/* {showSidebar && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden backdrop-blur-sm transition-opacity"
-          // We assume you have a toggleSidebar function in context, or you can pass logic here
-          // onClick={() => toggleSidebar(false)} 
-        />
-      )} */}
+     
     </>
   );
 }

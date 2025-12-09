@@ -117,7 +117,7 @@ function AdminSidebar() {
           {/* User Info */}
           <div className="flex-1 min-w-0">
             <p className="text-sm font-semibold text-gray-100 truncate">Teumay</p>
-            <p className="text-xs text-gray-500 truncate">Administrator</p>
+            <p className="text-xs text-gray-500 truncate">Adminstrator</p>
           </div>
 
           {/* Chevron indication */}
@@ -130,7 +130,7 @@ function AdminSidebar() {
           className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 hover:text-red-700 transition-colors"
         >
           <LogOut size={16} />
-          <span>Sign Out</span>
+          <span className='text-[red]'>Sign Out</span>
         </button>
       </div>
     </aside>
