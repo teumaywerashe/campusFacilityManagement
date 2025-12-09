@@ -134,13 +134,13 @@ function Sidebar() {
          OPTIONAL: Mobile Overlay 
          This darkens the rest of the screen on mobile when sidebar is open 
       */}
-      {showSidebar && (
+      {/* {showSidebar && (
         <div 
           className="fixed inset-0 bg-black/50 z-30 lg:hidden backdrop-blur-sm transition-opacity"
           // We assume you have a toggleSidebar function in context, or you can pass logic here
           // onClick={() => toggleSidebar(false)} 
         />
-      )}
+      )} */}
     </>
   );
 }
