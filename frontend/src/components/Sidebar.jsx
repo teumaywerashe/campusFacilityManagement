@@ -13,7 +13,13 @@ import { user } from "../images/image";
 
 function Sidebar() {
   const navigate = useNavigate();
-  const { notifications, showSidebar,setShowSidebar, logout, getNotification } = useContext(StoreContext);
+  const {
+    notifications,
+    showSidebar,
+    setShowSidebar,
+    logout,
+    getNotification,
+  } = useContext(StoreContext);
 
   // Filter unread notifications
   const unReadNotification = notifications.filter((n) => !n.isRead);
@@ -38,7 +44,6 @@ function Sidebar() {
 
   return (
     <>
-     
       <div
         className={`
           fixed left-0 top-16 
@@ -46,7 +51,9 @@ function Sidebar() {
           bg-gray-900 border-r border-gray-800
           flex flex-col 
           transition-transform duration-300 ease-in-out z-40
-          ${showSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          ${
+            showSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+          }
         `}
       >
         {/* 1. Header / Brand (Optional - can be removed if Navbar covers branding) */}
@@ -55,23 +62,37 @@ function Sidebar() {
             <div className="bg-blue-600 p-1.5 rounded-lg">
               <ShieldCheck size={20} className="text-white" />
             </div>
-            <span>StudentPanel</span>
+            <span>
+              Student <span className="text-blue-600">Panel</span>
+            </span>
           </div>
         </div>
 
         {/* 2. Navigation List (Scrollable) */}
         <div className="flex-1 flex flex-col gap-1 overflow-y-auto py-2 custom-scrollbar">
-          <NavLink onClick={()=>setShowSidebar(false)} to="/user/dashboard" className={linkClasses}>
+          <NavLink
+            onClick={() => setShowSidebar(false)}
+            to="/user/dashboard"
+            className={linkClasses}
+          >
             <LayoutDashboard size={20} />
             <span>Dashboard</span>
           </NavLink>
 
-          <NavLink onClick={()=>setShowSidebar(false)} to="/user/myReport" className={linkClasses}>
+          <NavLink
+            onClick={() => setShowSidebar(false)}
+            to="/user/myReport"
+            className={linkClasses}
+          >
             <FileText size={20} />
             <span>My Reports</span>
           </NavLink>
 
-          <NavLink onClick={()=>setShowSidebar(false)} to="/user/notification" className={linkClasses}>
+          <NavLink
+            onClick={() => setShowSidebar(false)}
+            to="/user/notification"
+            className={linkClasses}
+          >
             <div className="relative">
               <Bell size={20} />
               {/* Notification Dot Animation */}
@@ -92,7 +113,11 @@ function Sidebar() {
             )}
           </NavLink>
 
-          <NavLink  onClick={()=>setShowSidebar(false)} to="/user/setting" className={linkClasses}>
+          <NavLink
+            onClick={() => setShowSidebar(false)}
+            to="/user/setting"
+            className={linkClasses}
+          >
             <Settings size={20} />
             <span>Settings</span>
           </NavLink>
@@ -114,7 +139,9 @@ function Sidebar() {
               className="flex-1 min-w-0"
               onClick={() => navigate("/user/setting")}
             >
-              <p className="text-sm font-semibold text-white truncate">Teumay</p>
+              <p className="text-sm font-semibold text-white truncate">
+                Teumay
+              </p>
               <p className="text-xs text-gray-500 truncate">Student Account</p>
             </div>
 
@@ -129,7 +156,7 @@ function Sidebar() {
           </div>
         </div>
       </div>
-      
+
       {/* 
          OPTIONAL: Mobile Overlay 
          This darkens the rest of the screen on mobile when sidebar is open 
