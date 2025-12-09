@@ -3,8 +3,7 @@ import "./App.css";
 import Navbar from "./components/Navbar.jsx";
 import UserHome from "./components//UserHome.jsx";
 import Home from "./pages/Home.jsx";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {  Toaster } from "sonner";
 import { useContext } from "react";
 import { StoreContext } from "./context/store.jsx";
 import AdminHome from "./components/AdminHome.jsx";
@@ -14,7 +13,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer position="top-right" />
+      <Toaster position="top-right" />
       <Navbar />
       <Routes>
         {!token && <Route path="/" element={<Home />}></Route>}

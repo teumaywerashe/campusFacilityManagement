@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { StoreContext } from "../context/store";
+import {
+  Eye,
+  EyeClosed,
+  EyeClosedIcon,
+  EyeOff,
+  ScanEyeIcon,
+} from "lucide-react";
 
 // Make sure you have Tailwind configured in your project
 // No external CSS file needed
@@ -11,6 +18,7 @@ function LogIn() {
   const { setToken, setId, setRole, url } = useContext(StoreContext);
   const navigate = useNavigate();
 
+  const [hiddenPassword, setHiddenPassword] = useState(false);
   const [status, setStatus] = useState("Log in");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -41,7 +49,7 @@ function LogIn() {
 
       if (response.data.success) {
         toast.success(response.data.msg);
-        
+
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.user.id);
         localStorage.setItem("role", response.data.user.role);
@@ -65,18 +73,16 @@ function LogIn() {
   return (
     // Main Container (Full Screen Background)
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      
       {/* Login Card */}
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-        
         {/* Header Section */}
         <div className="text-center">
           <h2 className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight">
             {status}
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            {status === "Log in" 
-              ? "Welcome back! Please enter your details." 
+            {status === "Log in"
+              ? "Welcome back! Please enter your details."
               : "Create a new account to get started."}
           </p>
         </div>
@@ -84,11 +90,12 @@ function LogIn() {
         {/* Form Section */}
         <form className="mt-8 space-y-6" onSubmit={onFormSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
-            
             {/* Name Input (Only for Sign Up) */}
             {status === "Sign up" && (
               <div>
-                <label htmlFor="name" className="sr-only">Name</label>
+                <label htmlFor="name" className="sr-only">
+                  Name
+                </label>
                 <input
                   id="name"
                   name="name"
@@ -104,7 +111,9 @@ function LogIn() {
 
             {/* Email Input */}
             <div>
-              <label htmlFor="email-address" className="sr-only">Email address</label>
+              <label htmlFor="email-address" className="sr-only">
+                Email address
+              </label>
               <input
                 id="email-address"
                 name="email"
@@ -120,18 +129,29 @@ function LogIn() {
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={data.password}
-                onChange={updateData}
-                className="appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-all"
-                placeholder="Password"
-              />
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <div className="appearance-none flex justify-between items-center relative  w-full  border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm transition-all">
+                <input
+                  id="password"
+                  name="password"
+                  type={`${hiddenPassword ? "password" : "text"}`}
+                  autoComplete="current-password"
+                  required
+                  value={data.password}
+                  onChange={updateData}
+                  className="outline-none block px-4 py-3"
+                  placeholder="Password"
+                />
+                <button type='button'
+                  onClick={() => setHiddenPassword(!hiddenPassword)}
+                  className="p-1 w-10"
+                >
+                  {" "}
+                  {hiddenPassword ? <EyeOff size={20} /> : <Eye size={20}/>}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -144,13 +164,16 @@ function LogIn() {
                 type="checkbox"
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Remember me
               </label>
             </div>
 
             <div className="text-sm">
-              <span 
+              <span
                 className="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"
                 onClick={() => toast.info("Feature coming soon!")}
               >
@@ -169,26 +192,27 @@ function LogIn() {
               }`}
             >
               {loading ? (
-                <span className="flex items-center gap-2">Processing...</span>
+                <span className="flex items-center gap-2">Loging in...</span>
               ) : (
                 status
               )}
             </button>
           </div>
-          
+
           {/* Toggle Login/Signup */}
           <div className="text-center mt-4">
-             <p className="text-sm text-gray-600">
-               {status === "Log in" ? "Don't have an account?" : "Already have an account?"}{" "}
-               <span 
-                 onClick={toggleStatus}
-                 className="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer transition-colors"
-               >
-                 {status === "Log in" ? "Create account" : "Log in"}
-               </span>
-             </p>
+            <p className="text-sm text-gray-600">
+              {status === "Log in"
+                ? "Don't have an account?"
+                : "Already have an account?"}{" "}
+              <span
+                onClick={toggleStatus}
+                className="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer transition-colors"
+              >
+                {status === "Log in" ? "Create account" : "Log in"}
+              </span>
+            </p>
           </div>
-
         </form>
       </div>
     </div>
