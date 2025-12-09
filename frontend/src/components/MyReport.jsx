@@ -53,7 +53,7 @@ function MyReport() {
           <div className="divide-y divide-gray-100">
             {report && report.length > 0 ? (
               report.map((item, i) => (
-                <div key={item._id || i} className="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 items-center hover:bg-gray-50 transition-colors duration-200 group">
+                <div key={item._id || i} className="border border-black mb-2 sm:border-0 grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 items-center hover:bg-gray-50 transition-colors duration-200 group">
                   
                   {/* Image Column */}
                   <div className="md:col-span-2 flex items-center gap-3">
@@ -112,7 +112,7 @@ function MyReport() {
                             deleteIssue(item.id || item._id)
                         }
                       }}
-                      className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200"
+                      className="p-2 sm:text-gray-400 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200"
                       title="Delete Report"
                     >
                       <Trash2 size={18} />
