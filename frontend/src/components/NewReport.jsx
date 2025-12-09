@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/store";
