@@ -1,5 +1,5 @@
 import axios from "axios";
-import react, { useState } from "react";
+import { useState } from "react";
 import { createContext } from "react";
 import { Navigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -7,7 +7,9 @@ import { toast } from "sonner";
 export const StoreContext = createContext();
 
 export const StoreContextProvider = ({ children }) => {
-  const url = import.meta.env.VITE_API_URL;
+  //  http://localhost:3000
+  const url = "http://localhost:3000";
+  // import.meta.env.VITE_API_URL;
   const [report, setReport] = useState([]);
   const [allReports, setAllReports] = useState([]);
 
@@ -29,8 +31,7 @@ export const StoreContextProvider = ({ children }) => {
     window.location.href = "/";
   };
 
-
-  const [showSidebar, setShowSidebar] = useState(false); 
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const markAsRead = async (tobemarked, id) => {
     try {
@@ -157,7 +158,9 @@ export const StoreContextProvider = ({ children }) => {
         logout,
         setToken,
         setId,
-        setRole,showSidebar,setShowSidebar,
+        setRole,
+        showSidebar,
+        setShowSidebar,
       }}
     >
       {children}{" "}

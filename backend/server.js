@@ -5,14 +5,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 app.use(
-    cors({
-        methods: ["GET", "POST", "PATCH",
-            "PUT", "DELETE", "OPTIONS"
-        ],
-        allowedHeaders: ["Content-Type", "token"],
-        origin: ["http://localhost:5173", /\.onrender\.com$/],
-        credentials: true,
-    })
+  cors({
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "token"],
+    origin: ["http://localhost:5173", /\.onrender\.com$/],
+    credentials: true,
+  })
 );
 app.options("/", cors());
 import { userRouter } from "./route/userRoute.js";
@@ -26,7 +24,6 @@ app.use("/user", userRouter);
 app.use("/issue", issueRouter);
 app.use("/notification", notificationRouter);
 
-
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
