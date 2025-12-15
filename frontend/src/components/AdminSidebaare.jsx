@@ -13,8 +13,12 @@ import {
 } from "lucide-react";
 
 function AdminSidebar() {
+
+
+  
+
   const navigate = useNavigate();
-  const { logout, getAllReports,showSidebar,setShowSidebar, allReports } = useContext(StoreContext);
+  const { logout,userName, getAllReports,role,showSidebar,setShowSidebar, allReports } = useContext(StoreContext);
 
   // Calculate unread reports
   const unReadReports = allReports?.filter((report) => !report.isRead) || [];
@@ -22,6 +26,7 @@ function AdminSidebar() {
 
   useEffect(() => {
     getAllReports();
+   
   }, []);
 
   // Base classes for navigation links
@@ -116,8 +121,8 @@ function AdminSidebar() {
           
           {/* User Info */}
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-gray-100 truncate">Teumay</p>
-            <p className="text-xs text-gray-500 truncate">Adminstrator</p>
+            <p className="text-sm font-semibold hover:text-black capitalize text-gray-100 truncate">{userName}</p>
+            <p className="text-xs text-gray-500 capitalize truncate">{role} account</p>
           </div>
 
           {/* Chevron indication */}

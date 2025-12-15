@@ -17,17 +17,20 @@ export const StoreContextProvider = ({ children }) => {
 
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [id, setId] = useState(localStorage.getItem("userId"));
+  const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const [role, setRole] = useState(localStorage.getItem("role"));
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("role");
+    localStorage;
     setReport([]);
     setNotifications([]);
     setId(null);
     setToken(null);
     setRole(null);
+    setUserName(null);
     window.location.href = "/";
   };
 
@@ -157,6 +160,8 @@ export const StoreContextProvider = ({ children }) => {
         allReports,
         logout,
         setToken,
+        userName,
+        setUserName,
         setId,
         setRole,
         showSidebar,

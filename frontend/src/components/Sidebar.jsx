@@ -16,7 +16,7 @@ function Sidebar() {
   const {
     notifications,
     showSidebar,
-    setShowSidebar,
+    setShowSidebar,role,userName,
     logout,
     getNotification,
   } = useContext(StoreContext);
@@ -144,9 +144,9 @@ function Sidebar() {
               onClick={() => navigate("/user/setting")}
             >
               <p className="text-sm font-semibold capitalize text-white truncate">
-                Teumay
+                {userName}
               </p>
-              <p className="text-xs text-gray-500 truncate">user Account</p>
+              <p className="text-xs capitalize text-gray-500 truncate">{role} Account</p>
             </div>
 
             {/* Logout Button */}

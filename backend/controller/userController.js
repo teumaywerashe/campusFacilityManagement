@@ -63,7 +63,7 @@ export const loginUser = async(req, res) => {
         const token = jwt.sign({ id: user.id, role: user.role, email: user.email },
             process.env.JWT_SECRET, { expiresIn: "24h" }
         );
-        console.log(user.role);
+        // console.log(user.role);
         res
             .status(200)
             .json({
@@ -76,10 +76,6 @@ export const loginUser = async(req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: "server error", success: false });
-    } finally {
-        console.log("✅ Route hit");
-
-
     }
 };
 

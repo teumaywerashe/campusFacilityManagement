@@ -15,7 +15,7 @@ import {
 // No external CSS file needed
 
 function LogIn() {
-  const { setToken, setId, setRole, url } = useContext(StoreContext);
+  const { setToken,setUserName, setId, setRole, url } = useContext(StoreContext);
   const navigate = useNavigate();
 
   const [hiddenPassword, setHiddenPassword] = useState(false);
@@ -52,11 +52,13 @@ function LogIn() {
 
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.user.id);
+          localStorage.setItem("userName", response.data.user.name);
         localStorage.setItem("role", response.data.user.role);
 
         setToken(response.data.token);
         setRole(response.data.user.role);
         setId(response.data.user.id);
+        setUserName(response.data.user.name);
 
         navigate(`/${response.data.user.role}/`);
       } else {
