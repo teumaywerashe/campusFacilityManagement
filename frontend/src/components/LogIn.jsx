@@ -138,7 +138,7 @@ function LogIn() {
                 <input
                   id="password"
                   name="password"
-                  type={`${hiddenPassword ? "password" : "text"}`}
+                  type={`${hiddenPassword ? "text" : "password"}`}
                   autoComplete="current-password"
                   required
                   value={data.password}
@@ -151,7 +151,7 @@ function LogIn() {
                   className="p-1 w-10"
                 >
                   {" "}
-                  {hiddenPassword ? <EyeOff size={20} /> : <Eye size={20}/>}
+                  {hiddenPassword ? <Eye size={20} /> : <EyeOff size={20}/>}
                 </button>
               </div>
             </div>

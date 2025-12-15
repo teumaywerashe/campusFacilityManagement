@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import ShowImage from "./ShowImage";
-import { useNavigate } from "react-router-dom";
 
 function AllReportDisplay({ report }) {
   const { url, role, markAsRead, token, deleteIssue, updateTime } =
@@ -50,7 +49,6 @@ function AllReportDisplay({ report }) {
         { status: newStatus },
         { headers: { token } }
       );
-      // Optional: Trigger a toast notification here
     } catch (error) {
       console.error("Failed to update status", error);
       // Revert if failed

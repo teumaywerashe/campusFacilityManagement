@@ -3,5 +3,11 @@ export default {
     theme: {
         extend: {},
     },
+    darkMode: 'class', // enables toggling via a CSS class
     plugins: [],
 };
+
+// export default = {
+
+//     plugins: [],
+// };

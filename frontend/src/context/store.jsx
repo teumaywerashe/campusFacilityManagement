@@ -9,11 +9,18 @@ export const StoreContext = createContext();
 export const StoreContextProvider = ({ children }) => {
   //  http://localhost:3000
   const url = "http://localhost:3000";
+
+
   // import.meta.env.VITE_API_URL;
+
+const [theme, setTheme] = useState('light');
+
   const [report, setReport] = useState([]);
   const [allReports, setAllReports] = useState([]);
 
   const [notifications, setNotifications] = useState([]);
+
+
 
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [id, setId] = useState(localStorage.getItem("userId"));
@@ -161,7 +168,7 @@ export const StoreContextProvider = ({ children }) => {
         setId,
         setRole,
         showSidebar,
-        setShowSidebar,
+        setShowSidebar,theme,setTheme,
       }}
     >
       {children}{" "}

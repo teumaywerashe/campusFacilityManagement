@@ -3,13 +3,23 @@ import "./App.css";
 import Navbar from "./components/Navbar.jsx";
 import UserHome from "./components//UserHome.jsx";
 import Home from "./pages/Home.jsx";
-import {  Toaster } from "sonner";
-import { useContext } from "react";
+import { Toaster } from "sonner";
+import { useContext, useEffect } from "react";
 import { StoreContext } from "./context/store.jsx";
 import AdminHome from "./components/AdminHome.jsx";
 
 function App() {
-  const { role, token } = useContext(StoreContext);
+  const { role, theme, token } = useContext(StoreContext);
+
+  useEffect(() => {
+    if (theme === "dark") {
+      // document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
+    } else {
+      // document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+    }
+  }, [theme]);
 
   return (
     <>

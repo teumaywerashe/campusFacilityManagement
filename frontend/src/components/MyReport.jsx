@@ -23,7 +23,7 @@ function MyReport() {
   }, []);
 
   return (
-    <div className="min-h-screen mx-auto bg-gray-50/50 p-6 font-sans">
+    <div className="min-h-screen dark:bg-gray-800 mx-auto bg-gray-50/50 p-6 font-sans">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
