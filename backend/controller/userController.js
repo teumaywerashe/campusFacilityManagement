@@ -75,7 +75,7 @@ export const loginUser = async(req, res) => {
             });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ msg: "jk server error", success: false });
+        res.status(500).json({ msg: "server error", success: false });
     } finally {
         console.log("✅ Route hit");
 
