@@ -38,18 +38,14 @@ export const StoreContextProvider = ({ children }) => {
 
   const markAsRead = async (tobemarked, id) => {
     try {
-      const response = await axios.patch(
+     await axios.patch(
         `${url}/${tobemarked}/update/${id}`,
         { isRead: true },
         {
           headers: { token },
         }
       );
-      if (response.data.success) {
-        toast.success(response.data.msg);
-      } else {
-        console.log(response.data);
-      }
+     
     } catch (error) {
       toast.error("error");
       console.log(error);

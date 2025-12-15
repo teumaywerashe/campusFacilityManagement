@@ -168,7 +168,7 @@ function AdminDashboard() {
                       <Calendar size={12} />
                       <span>{updateTime(rep.createdAt)}</span>
                     </div>
-                    <span>ID: #{rep._id?.slice(-4) || "N/A"}</span>
+                    <span>ID: #{rep.id || "N/A"}</span>
                   </div>
                 </div>
               );

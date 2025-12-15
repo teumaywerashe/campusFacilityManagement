@@ -25,7 +25,6 @@ function Notification({ noti }) {
 
   // Handle Main Click (Navigate)
   const handleContentClick = () => {
-    markAsRead(noti.id);
     navigate("/user/dashboard");
   };
 
@@ -36,7 +35,7 @@ function Notification({ noti }) {
   };
 
   return (
-    <div 
+    <div onClick={()=>markAsRead('notification',noti.id)}
       className={`relative flex w-full items-start gap-4 p-4 border-b border-gray-100 transition-colors duration-200 hover:bg-gray-50 
       ${!noti.isRead ? "bg-blue-50/60" : "bg-white"}`}
     >

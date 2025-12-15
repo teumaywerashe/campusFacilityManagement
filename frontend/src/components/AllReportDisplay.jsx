@@ -8,13 +8,16 @@ import {
   ChevronDown,
   Clock,
   Calendar,
-  Eye
+  Eye,
 } from "lucide-react";
 import axios from "axios";
 import ShowImage from "./ShowImage";
+import { useNavigate } from "react-router-dom";
 
 function AllReportDisplay({ report }) {
-  const { url, role, markAsRead, token, deleteIssue, updateTime } = useContext(StoreContext);
+  const { url, role, markAsRead, token, deleteIssue, updateTime } =
+    useContext(StoreContext);
+
   
   // State
   const [showImage, setShowImage] = useState(false);
@@ -24,7 +27,7 @@ function AllReportDisplay({ report }) {
 
   const menuRef = useRef(null);
 
-  // Close menu when clicking outside
+ 
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -40,7 +43,7 @@ function AllReportDisplay({ report }) {
     const newStatus = e.target.value;
     setStatus(newStatus);
     setIsLoading(true);
-    
+
     try {
       await axios.patch(
         `${url}/issue/update/${report._id}`,
@@ -51,7 +54,7 @@ function AllReportDisplay({ report }) {
     } catch (error) {
       console.error("Failed to update status", error);
       // Revert if failed
-      setStatus(report.status); 
+      setStatus(report.status);
     } finally {
       setIsLoading(false);
     }
@@ -60,22 +63,27 @@ function AllReportDisplay({ report }) {
   // Dynamic Status Badge Color
   const getStatusColor = (currentStatus) => {
     switch (currentStatus.toLowerCase()) {
-      case "resolved": return "bg-green-100 text-green-700 border-green-200";
-      case "in progress": return "bg-blue-100 text-blue-700 border-blue-200";
-      case "pending": return "bg-orange-100 text-orange-700 border-orange-200";
-      default: return "bg-gray-100 text-gray-700 border-gray-200";
+      case "resolved":
+        return "bg-green-100 text-green-700 border-green-200";
+      case "in progress":
+        return "bg-blue-100 text-blue-700 border-blue-200";
+      case "pending":
+        return "bg-orange-100 text-orange-700 border-orange-200";
+      default:
+        return "bg-gray-100 text-gray-700 border-gray-200";
     }
   };
 
   return (
     <>
-      <div className={`grid grid-cols-12 gap-4 px-6 py-4 items-center border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 relative group
-        ${!report.isRead ? 'bg-blue-50/40 hover:bg-blue-50/60' : ''}`}
+      <div
+      
+        className={`grid grid-cols-12 gap-4 cursor-pointer px-6 py-4 items-center border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 relative group
+        ${!report.isRead ? "bg-blue-50/40 hover:bg-blue-50/60" : ""}`}
       >
-        
         {/* --- 1. IMAGE THUMBNAIL --- */}
         <div className="col-span-1">
-          <div 
+          <div
             onClick={() => setShowImage(true)}
             className="relative w-12 h-12 rounded-lg overflow-hidden border border-gray-200 cursor-pointer group/img"
           >
@@ -102,13 +110,16 @@ function AllReportDisplay({ report }) {
         <div className="col-span-4 pr-4">
           <div className="flex items-center gap-2">
             <h3 className="text-sm font-semibold text-gray-900 truncate max-w-[200px]">
-               Issue #{report._id?.slice(-4) || '---'}
+              Issue #{report._id?.slice(-4) || "---"}
             </h3>
             {!report.isRead && (
-               <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+              <span className="w-2 h-2 rounded-full bg-blue-500"></span>
             )}
           </div>
-          <p className="text-sm text-gray-500 line-clamp-1 mt-0.5" title={report.content}>
+          <p
+            className="text-sm text-gray-500 line-clamp-1 mt-0.5"
+            title={report.content}
+          >
             {report.content}
           </p>
         </div>
@@ -144,7 +155,9 @@ function AllReportDisplay({ report }) {
           </div>
           <div className="flex items-center gap-2">
             <Clock size={12} className="text-gray-400" />
-            <span className="text-gray-400">Upd: {updateTime(report.updatedAt)}</span>
+            <span className="text-gray-400">
+              Upd: {updateTime(report.updatedAt)}
+            </span>
           </div>
         </div>
 
@@ -152,7 +165,11 @@ function AllReportDisplay({ report }) {
         <div className="col-span-2 flex justify-end relative" ref={menuRef}>
           <button
             onClick={() => setShowMenu(!showMenu)}
-            className={`p-2 rounded-full transition-colors ${showMenu ? 'bg-gray-100 text-gray-900' : 'text-gray-400 hover:text-gray-700 hover:bg-gray-100'}`}
+            className={`p-2 rounded-full transition-colors ${
+              showMenu
+                ? "bg-gray-100 text-gray-900"
+                : "text-gray-400 hover:text-gray-700 hover:bg-gray-100"
+            }`}
           >
             <MoreVertical size={18} />
           </button>
@@ -160,12 +177,11 @@ function AllReportDisplay({ report }) {
           {/* Floating Dropdown */}
           {showMenu && (
             <div className="absolute right-0 top-10 w-48 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-100 origin-top-right">
-              
               {/* Mark Read */}
               {!report.isRead && (
                 <button
                   onClick={() => {
-                    markAsRead("issue", report._id); // Assuming ID is _id based on Mongoose
+                    markAsRead("issue", report.id); // Assuming ID is _id based on Mongoose
                     setShowMenu(false);
                   }}
                   className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center gap-3 transition-colors border-b border-gray-50"
@@ -177,7 +193,7 @@ function AllReportDisplay({ report }) {
 
               {/* Notify Admin */}
               {role === "admin" && (
-                <button 
+                <button
                   className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3 transition-colors"
                   onClick={() => setShowMenu(false)}
                 >
@@ -204,10 +220,10 @@ function AllReportDisplay({ report }) {
 
       {/* --- IMAGE MODAL --- */}
       {showImage && (
-        <ShowImage 
-          showImage={showImage} 
-          report={report} 
-          setShowImage={setShowImage} 
+        <ShowImage
+          showImage={showImage}
+          report={report}
+          setShowImage={setShowImage}
         />
       )}
     </>

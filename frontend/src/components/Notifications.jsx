@@ -26,7 +26,7 @@ function Notifications() {
 
   return (
     <div className="min-h-screen ml-0  w-full bg-gray-50/50 p-4 md:p-8 font-sans">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-full mx-auto">
         
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
