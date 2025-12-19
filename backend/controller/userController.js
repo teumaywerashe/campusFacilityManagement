@@ -11,7 +11,7 @@ export const registerUser = async(req, res) => {
         }
         const exist = await prisma.user.findUnique({ where: { email } });
         if (exist) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 msg: "User already exists. Please log in instead.",
             });
@@ -42,7 +42,7 @@ export const loginUser = async(req, res) => {
         const { email, password } = req.body;
 
         if (!emailRegex.test(email)) {
-            return res.status(400).json({ success: false, msg: "Invalid email ❌" });
+            return res.status(200).json({ success: false, msg: "Invalid email ❌" });
         }
 
         const user = await prisma.user.findUnique({ where: { email } });

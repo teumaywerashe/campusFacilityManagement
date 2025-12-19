@@ -8,7 +8,10 @@ app.use(
   cors({
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "token"],
-    origin: ["http://localhost:5173", /\.onrender\.com$/],
+    origin: [
+      "http://localhost:5173",
+      "https://campusfacilitymanagement.onrender.com",
+    ],
     credentials: true,
   })
 );
