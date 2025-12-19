@@ -23,7 +23,7 @@ function MyReport() {
   }, []);
 
   return (
-    <div className="min-h-screen dark:bg-gray-800 mx-auto bg-gray-50/50 p-6 font-sans">
+    <div className="min-h-screen  mx-auto bg-gray-50/50 p-6 font-sans">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}
@@ -109,7 +109,7 @@ function MyReport() {
                     <button
                       onClick={() => {
                         if(window.confirm('Are you sure you want to delete this report?')) {
-                            deleteIssue(item.id || item._id)
+                            deleteIssue(item.id)
                         }
                       }}
                       className="p-2 sm:text-gray-400 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200"
