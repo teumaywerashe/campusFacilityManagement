@@ -66,7 +66,7 @@ function LogIn() {
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.msg || "Something went wrong!");
+      toast.error(error.response?.data?.msg || "Somethng went wrong!");
     } finally {
       setLoading(false);
     }
