@@ -8,19 +8,14 @@ export const StoreContext = createContext();
 
 export const StoreContextProvider = ({ children }) => {
   //  http://localhost:3000
-  const url = "http://localhost:3000";
+  const url = import.meta.env.VITE_API_URL;
 
-
-  // import.meta.env.VITE_API_URL;
-
-const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
 
   const [report, setReport] = useState([]);
   const [allReports, setAllReports] = useState([]);
 
   const [notifications, setNotifications] = useState([]);
-
-
 
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [id, setId] = useState(localStorage.getItem("userId"));
@@ -45,14 +40,13 @@ const [theme, setTheme] = useState('light');
 
   const markAsRead = async (tobemarked, id) => {
     try {
-     await axios.patch(
+      await axios.patch(
         `${url}/${tobemarked}/update/${id}`,
         { isRead: true },
         {
           headers: { token },
         }
       );
-     
     } catch (error) {
       toast.error("error");
       console.log(error);
@@ -168,7 +162,9 @@ const [theme, setTheme] = useState('light');
         setId,
         setRole,
         showSidebar,
-        setShowSidebar,theme,setTheme,
+        setShowSidebar,
+        theme,
+        setTheme,
       }}
     >
       {children}{" "}
