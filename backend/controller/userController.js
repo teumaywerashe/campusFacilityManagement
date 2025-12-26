@@ -23,7 +23,7 @@ export const registerUser = async(req, res) => {
             data: { name, email, password: hashedPassword },
         });
         const token = jwt.sign({ id: user.id, role: user.role, email: user.email },
-            "json_web_token_secret", { expiresIn: "24h" }
+            process.env.JWT_SECRET, { expiresIn: "24h" }
         );
         res.status(201).json({
             success: true,
