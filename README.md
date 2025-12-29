@@ -4,6 +4,7 @@ A full-stack Campus Facility Management system where students and staff can log 
 
 ### 🚀 Live Demo
 Live Site: [Add your live link here]
+
 Backend API: [Add API link if available]
 
 ## 🛠 Tech Stack
@@ -67,59 +68,92 @@ Public access limited to report submission (if allowed)
 ## 📁 Project Structure
 
 campus-facility-management/
+
 ├── backend
+
 │   ├── routes
+
 │   ├── controllers
+
 │   ├── middleware
-│   ├── prisma
+
+│   ├── models
+
 │   ├── config
+
 │   └── server.js
+
 ├── frontend
+
 │   ├── src
+
 │   │   ├── components
+
 │   │   ├── pages
+
+│   │   ├── store
+
 │   │   └── main.jsx
+
 └── README.md
 
 
 ## ⚙️ Environment Variables
+
 The backend uses environment variables for configuration.
 
 .env
+
 Example:
 
 PORT=3000
+
 MONGODB_URL='your_database_url_here'
+
 JWT_SECRET='your_secret_key'
+
 TOKEN_EXPIRE='1d'
 
 
 
 ## ▶️ Run Locally
+
 ### Backend
 
 cd backend
+
 npm install
+
 npm run dev
 
 
 ### Frontend
 
 cd frontend
+
 npm install
+
 npm run dev
 
 
 ## 📡 API Overview
 
 Method	Endpoint	Description
+
 GET	/issue	Get all reports (admin)
+
 GET	/issue/:id	Get a single report (admin)
+
 POST	/issue/add	Submit a new report (user)
+
 PUT	/reports/respond/:id	Respond to a report (admin)
+
 POST	/user/login	User/Admin login
+
 POST	/user/register	Admin registration (superadmin)
+
 PUT	/user/update/:id	Update profile (admin/superadmin)
+
 DELETE	/user/delete/:id	Remove admin (superadmin)
 
 ## 🧠 What This Project Demonstrates
@@ -145,6 +179,7 @@ File attachment support for reports
 Advanced filtering and reporting system
 
 ## 👤 Author
+
 Teumay Werashe
 
 ⭐ If you like this project, feel free to give it a star!
