@@ -5,7 +5,7 @@ A full-stack Campus Facility Management system where students and staff can log 
 ### 🚀 Live Demo
 Live Site: [Campus Facility Management](https://campusfacilitymanagement-1.onrender.com/)
 
-Backend API: [Backend API]([url](https://campusfacilitymanagement.onrender.com)
+Backend API: [Backend API](https://campusfacilitymanagement.onrender.com)
 
 ## 🛠 Tech Stack
 
