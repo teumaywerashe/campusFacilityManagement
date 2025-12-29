@@ -1,6 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Camera, Eye, EyeOff, Save, User, Lock, Mail } from "lucide-react";
 import { admin } from "../images/image"; 
+import { useContext } from "react";
+import { StoreContext } from "../context/store";
+import { useEffect } from "react";
 
 function Setting() {
   const fileInputRef = useRef(null);
@@ -8,7 +11,15 @@ function Setting() {
   
   const [selectedImage, setSelectedImage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  const {user,getUser} = useContext(StoreContext);
   
+
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   // Simulating initial data - in real app, fetch this from Context
   const [data, setData] = useState({ 
     name: "Admin User", 
@@ -92,7 +103,7 @@ function Setting() {
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                   <input
                     name="name"
-                    value={data.name}
+                    value={user.name}
                     onChange={handleChange}
                     type="text"
                     placeholder="Enter your name"
@@ -108,7 +119,7 @@ function Setting() {
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                   <input
                     name="email"
-                    value={data.email}
+                    value={user.email}
                     onChange={handleChange}
                     type="email"
                     placeholder="Enter your email"

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { get } from "mongoose";
 import { useState } from "react";
 import { createContext } from "react";
 // import { Navigate } from "react-router-dom";
@@ -21,6 +22,8 @@ export const StoreContextProvider = ({ children }) => {
   const [id, setId] = useState(localStorage.getItem("userId"));
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const [role, setRole] = useState(localStorage.getItem("role"));
+
+  const [user, setUser] = useState({});
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -83,6 +86,18 @@ export const StoreContextProvider = ({ children }) => {
         getReport();
       } else {
         toast.error(response.data.msg);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getUser = async () => {
+    try {
+      const response = await axios.get(`${url}/user/get/${id}`, {
+        headers: { token },
+      });
+      if (response.data.success) {
+        setUser(response.data.user.name);
       }
     } catch (error) {
       console.log(error);
@@ -155,6 +170,8 @@ export const StoreContextProvider = ({ children }) => {
         markAsRead,
         report,
         allReports,
+        getUser,
+        user,
         logout,
         setToken,
         userName,

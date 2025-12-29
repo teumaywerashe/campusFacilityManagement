@@ -87,7 +87,7 @@ function NewReport() {
   };
 
   return (
-    <div className="min-h-screen  sm:ml-64ml-0 w-full bg-gray-50 flex items-center justify-center p-6 font-sans">
+    <div className="min-h-screen  sm:ml-64 ml-0 w-full bg-gray-50 flex items-center justify-center p-6 font-sans">
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 flex flex-col md:flex-row">
         {/* --- LEFT SIDE: Form & Inputs --- */}
         <div className="w-full md:w-3/5 p-8 md:p-10 flex flex-col">
