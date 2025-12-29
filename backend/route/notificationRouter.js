@@ -1,5 +1,11 @@
 import express from 'express'
-import { createNotification, deleteNotification, getAllNotifications, getNotifications, updateNotification } from '../controller/notificationController.js'
+import {
+    createNotification,
+    deleteNotification,
+    getAllNotifications,
+    getNotifications,
+    updateNotification
+} from '../controller/notificationController.js'
 export const notificationRouter = express.Router()
 
 

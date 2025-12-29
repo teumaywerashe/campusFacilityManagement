@@ -38,7 +38,7 @@ export const getAllIssues = async(req, res) => {
     }
 };
 
-export const getIssues = async(req, res) => {
+export const getUserIssues = async(req, res) => {
     try {
         const { id } = req.params;
         const issues = await prisma.issue.findMany({

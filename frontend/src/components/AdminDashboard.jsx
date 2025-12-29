@@ -3,12 +3,9 @@ import { StoreContext } from "../context/store";
 import {
   X,
   Filter,
-  Calendar,
   CheckCircle2,
   Clock,
   AlertCircle,
-  MoreHorizontal,
-  ImageIcon,
 } from "lucide-react";
 import AdminDashBoardDisplay from "./AdminDashBoardDisplay";
 
@@ -18,7 +15,7 @@ function AdminDashboard() {
   // State
   const [statusFilter, setStatusFilter] = useState("All");
   const [selectedImage, setSelectedImage] = useState(null);
-
+  
   useEffect(() => {
     getAllReports();
   }, [allReports]);

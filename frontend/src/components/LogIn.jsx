@@ -15,7 +15,8 @@ import {
 // No external CSS file needed
 
 function LogIn() {
-  const { setToken,setUserName, setId, setRole, url } = useContext(StoreContext);
+  const { setToken, setUserName, setId, setRole, url } =
+    useContext(StoreContext);
   const navigate = useNavigate();
 
   const [hiddenPassword, setHiddenPassword] = useState(false);
@@ -52,7 +53,7 @@ function LogIn() {
 
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userId", response.data.user.id);
-          localStorage.setItem("userName", response.data.user.name);
+        localStorage.setItem("userName", response.data.user.name);
         localStorage.setItem("role", response.data.user.role);
 
         setToken(response.data.token);
@@ -146,12 +147,13 @@ function LogIn() {
                   className="outline-none block px-4 py-3"
                   placeholder="Password"
                 />
-                <button type='button'
+                <button
+                  type="button"
                   onClick={() => setHiddenPassword(!hiddenPassword)}
                   className="p-1 w-10"
                 >
                   {" "}
-                  {hiddenPassword ? <Eye size={20} /> : <EyeOff size={20}/>}
+                  {hiddenPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                 </button>
               </div>
             </div>
@@ -194,7 +196,11 @@ function LogIn() {
               }`}
             >
               {loading ? (
-                <span className="flex items-center gap-2">Loging in...</span>
+                status === "Log in" ? (
+                  <span className="flex items-center gap-2">Loging in...</span>
+                ) : (
+                  <span className="flex items-center gap-2">signing up...</span>
+                )
               ) : (
                 status
               )}
