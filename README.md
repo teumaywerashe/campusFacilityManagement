@@ -3,9 +3,9 @@
 A full-stack Campus Facility Management system where students and staff can log in to report facility issues, while administrators manage, view, and respond to these reports through a secure role-based system.
 
 ### 🚀 Live Demo
-Live Site: [Add your live link here]
+Live Site: [Campus Facility Management](https://campusfacilitymanagement-1.onrender.com/)
 
-Backend API: [Add API link if available]
+Backend API: [Backend API]([url](https://campusfacilitymanagement.onrender.com)
 
 ## 🛠 Tech Stack
 
