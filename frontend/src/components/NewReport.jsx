@@ -73,7 +73,7 @@ function NewReport() {
             0,
             20
           )}...". Thank you.`,
-          reportId: response.data.issue.id,
+          reportId: response.data.issue._id,
         });
 
         navigate("/user/dashboard");

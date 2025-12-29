@@ -126,7 +126,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
           <Calendar size={12} />
           <span>{updateTime(rep.createdAt)}</span>
         </div>
-        <span>ID: #{rep.id || "N/A"}</span>
+        <span>ID: #{rep._id || "N/A"}</span>
       </div>
 
       {seeOpition && (
@@ -135,7 +135,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
           className=" flex flex-col absolute gap-3 right-20 p-4  z-10 rounded-3xl bg-gray-400 border-amber-300"
         >
           <button
-            onClick={() => deleteIssue(rep.id)}
+            onClick={() => deleteIssue(rep._id)}
             className="flex gap-2 bg-white text-[red] p-3  rounded-2xl"
           >
             <Trash2 /> <span>Delete</span>
@@ -237,7 +237,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
           Cancel
         </button>
         <button
-          onClick={() => submitStatusChange(rep.id, updatedStatus)}
+          onClick={() => submitStatusChange(rep._id, updatedStatus)}
           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md shadow-blue-200 transition-all active:scale-95"
         >
           Save Changes

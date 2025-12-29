@@ -109,7 +109,7 @@ function MyReport() {
                     <button
                       onClick={() => {
                         if(window.confirm('Are you sure you want to delete this report?')) {
-                            deleteIssue(item.id)
+                            deleteIssue(item._id)
                         }
                       }}
                       className="p-2 sm:text-gray-400 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-all duration-200"

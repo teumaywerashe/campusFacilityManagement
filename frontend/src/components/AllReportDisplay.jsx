@@ -179,7 +179,7 @@ function AllReportDisplay({ report }) {
               {!report.isRead && (
                 <button
                   onClick={() => {
-                    markAsRead("issue", report.id); // Assuming ID is _id based on Mongoose
+                    markAsRead("issue", report._id); // Assuming ID is _id based on Mongoose
                     setShowMenu(false);
                   }}
                   className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center gap-3 transition-colors border-b border-gray-50"

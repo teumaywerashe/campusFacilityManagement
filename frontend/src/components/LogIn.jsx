@@ -52,13 +52,13 @@ function LogIn() {
         toast.success(response.data.msg);
 
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userId", response.data.user.id);
+        localStorage.setItem("userId", response.data.user._id);
         localStorage.setItem("userName", response.data.user.name);
         localStorage.setItem("role", response.data.user.role);
 
         setToken(response.data.token);
         setRole(response.data.user.role);
-        setId(response.data.user.id);
+        setId(response.data.user._id);
         setUserName(response.data.user.name);
 
         navigate(`/${response.data.user.role}/`);

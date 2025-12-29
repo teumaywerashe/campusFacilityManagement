@@ -133,7 +133,7 @@ function AllReport() {
                 <div className="col-span-4 pr-4">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-sm font-semibold text-gray-900 truncate">
-                      Report #{report.id}
+                      Report #{report._id}
                     </span>
                     {!report.isRead && (
                       <span className="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded uppercase">
@@ -183,7 +183,7 @@ function AllReport() {
                 <div className="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
                     onClick={() => {
-                      markAsRead("issue", report.id);
+                      markAsRead("issue", report._id);
                       navigate("/admin/dashboard");
                     }}
                     className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"

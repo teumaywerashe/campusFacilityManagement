@@ -35,7 +35,7 @@ function Notification({ noti }) {
   };
 
   return (
-    <div onClick={()=>markAsRead('notification',noti.id)}
+    <div onClick={()=>markAsRead('notification',noti._id)}
       className={`relative flex w-full items-start gap-4 p-4 border-b border-gray-100 transition-colors duration-200 hover:bg-gray-50 
       ${!noti.isRead ? "bg-blue-50/60" : "bg-white"}`}
     >
@@ -77,7 +77,7 @@ function Notification({ noti }) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  markAsRead('notification', noti.id);
+                  markAsRead('notification', noti._id);
                   setShowMenu(false);
                 }}
                 className="w-full text-left px-4 py-3 text-xs font-medium text-gray-700 hover:bg-blue-50 flex items-center gap-2 transition-colors"
@@ -90,7 +90,7 @@ function Notification({ noti }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                deleteNotification(noti.id);
+                deleteNotification(noti._id);
                 setShowMenu(false);
               }}
               className="w-full text-left px-4 py-3 text-xs font-medium text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
