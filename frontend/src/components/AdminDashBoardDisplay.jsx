@@ -37,9 +37,19 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
         }
       );
       const { data } = response;
+      console.log(data);
 
       if (data.success) {
         toast.success("Status updated successfully");
+
+        await axios.post(`${url}/notification/create`, {
+          receiverId: response.data.updatedIssue.userId,
+          content: `hello there your report: "${response.data.updatedIssue.content.substring(
+            0,
+            20
+          )}... status is updated to ${updatedStatus}". if the issue is still not fixed don't histate to reach us.`,
+          reportId: response.data.updatedIssue._id,
+        });
         setUpdate(false);
       }
     } catch (error) {
@@ -152,99 +162,109 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
       )}
 
       {update && (
-       <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in duration-300">
-  <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-    
-    {/* Header */}
-    <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-      <h1 className="font-bold text-xl text-gray-800">Update Status</h1>
-      <button 
-        onClick={() => setUpdate(false)}
-        className="text-gray-400 hover:text-gray-600 transition-colors"
-      >
-        <X size={24} />
-      </button>
-    </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in duration-300">
+          <div className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+            {/* Header */}
+            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+              <h1 className="font-bold text-xl text-gray-800">Update Status</h1>
+              <button
+                onClick={() => setUpdate(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
 
-    {/* Content Wrapper */}
-    <div className="p-6">
-      <div className="flex flex-col md:flex-row gap-8">
-        
-        {/* Left: Image Section */}
-        <div className="w-full md:w-1/2">
-          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">
-            Evidence Preview
-          </label>
-          <div
-            className="relative aspect-video md:aspect-square w-full bg-gray-50 rounded-xl overflow-hidden border-2 border-dashed border-gray-200 cursor-zoom-in group hover:border-blue-400 transition-all"
-            onClick={() => rep.image && setSelectedImage(`${url}/uploads/${rep.image}`)}
-          >
-            {rep.image ? (
-              <>
-                <img
-                  src={`${url}/uploads/${rep.image}`}
-                  alt="Evidence"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
-                   <span className="text-white text-sm font-medium bg-black/50 px-3 py-1 rounded-full">View Full Image</span>
+            {/* Content Wrapper */}
+            <div className="p-6">
+              <div className="flex flex-col md:flex-row gap-8">
+                {/* Left: Image Section */}
+                <div className="w-full md:w-1/2">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">
+                    Evidence Preview
+                  </label>
+                  <div
+                    className="relative aspect-video md:aspect-square w-full bg-gray-50 rounded-xl overflow-hidden border-2 border-dashed border-gray-200 cursor-zoom-in group hover:border-blue-400 transition-all"
+                    onClick={() =>
+                      rep.image &&
+                      setSelectedImage(`${url}/uploads/${rep.image}`)
+                    }
+                  >
+                    {rep.image ? (
+                      <>
+                        <img
+                          src={`${url}/uploads/${rep.image}`}
+                          alt="Evidence"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                          <span className="text-white text-sm font-medium bg-black/50 px-3 py-1 rounded-full">
+                            View Full Image
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-full text-gray-400 gap-2">
+                        <ImageIcon size={32} className="opacity-30" />
+                        <span className="text-xs font-medium">
+                          No image attached
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full text-gray-400 gap-2">
-                <ImageIcon size={32} className="opacity-30" />
-                <span className="text-xs font-medium">No image attached</span>
+
+                {/* Right: Details Section */}
+                <div className="flex flex-col w-full md:w-1/2 justify-between">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">
+                      Report Content
+                    </label>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-6 bg-gray-50 p-3 rounded-lg border border-gray-100 italic">
+                      "{rep.content}"
+                    </p>
+
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">
+                      Set New Status
+                    </label>
+                    <select
+                      onChange={(e) => handleStatusChange(e)}
+                      className="w-full bg-white border border-gray-300 text-gray-700 py-2.5 px-4 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "right 1rem center",
+                        backgroundSize: "1em",
+                      }}
+                      name="status"
+                      value={updatedStatus}
+                    >
+                      <option value="pending">⏳ Pending</option>
+                      <option value="in progress">⚙️ In Progress</option>
+                      <option value="resolved">✅ Resolved</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
+
+            {/* Footer Actions */}
+            <div className="bg-gray-50 px-6 py-4 flex justify-end gap-3">
+              <button
+                className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 rounded-lg transition-colors"
+                onClick={() => setUpdate(false)}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => submitStatusChange(rep._id, updatedStatus)}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md shadow-blue-200 transition-all active:scale-95"
+              >
+                Save Changes
+              </button>
+            </div>
           </div>
         </div>
-
-        {/* Right: Details Section */}
-        <div className="flex flex-col w-full md:w-1/2 justify-between">
-          <div>
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">
-              Report Content
-            </label>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6 bg-gray-50 p-3 rounded-lg border border-gray-100 italic">
-              "{rep.content}"
-            </p>
-
-            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">
-              Set New Status
-            </label>
-            <select
-              onChange={(e) => handleStatusChange(e)}
-              className="w-full bg-white border border-gray-300 text-gray-700 py-2.5 px-4 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer"
-              style={{ backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1em' }}
-              name="status"
-              value={updatedStatus}
-            >
-              <option value="pending">⏳ Pending</option>
-              <option value="in progress">⚙️ In Progress</option>
-              <option value="resolved">✅ Resolved</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* Footer Actions */}
-    <div className="bg-gray-50 px-6 py-4 flex justify-end gap-3">
-        <button 
-          className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 rounded-lg transition-colors"
-          onClick={() => setUpdate(false)}
-        >
-          Cancel
-        </button>
-        <button
-          onClick={() => submitStatusChange(rep._id, updatedStatus)}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md shadow-blue-200 transition-all active:scale-95"
-        >
-          Save Changes
-        </button>
-    </div>
-  </div>
-</div>
       )}
     </div>
   );
