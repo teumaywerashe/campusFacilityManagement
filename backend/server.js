@@ -7,13 +7,15 @@ dotenv.config();
 app.use(express.json());
 app.use(
     cors({
-        methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "token"],
-        origin: ["http://localhost:5173", /\.onrender\.com$/],
-        credentials: true,
+        origin: [
+            "http://localhost:5173",
+            "https://campusfacilitymanagement-1.onrender.com",
+        ],
+        methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "token", "Authorization"],
     })
 );
-app.options("/", cors());
+
 import { userRouter } from "./route/userRoute.js";
 import { issueRouter } from "./route/issueRouter.js";
 import { notificationRouter } from "./route/notificationRouter.js";
@@ -21,9 +23,9 @@ import { notificationRouter } from "./route/notificationRouter.js";
 
 const PORT = process.env.PORT || 3000;
 app.use("/uploads", express.static("uploads"));
-// app.get("/TEST", (req, res) =>
-//   res.send("Server is running!\n this is to test the server")
-// );
+app.get("/TEST", (req, res) =>
+    res.send("Server is running!\n this is to test the server")
+);
 
 // app.get("/test-db", async (req, res) => {
 //   try {
