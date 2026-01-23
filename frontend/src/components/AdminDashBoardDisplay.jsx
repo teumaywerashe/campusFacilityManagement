@@ -7,12 +7,15 @@ import {
   MoreHorizontal,
   Trash2,
   X,
+  MessageSquare,
+  Send,
 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 
 function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
-  const { url, updateTime, token, deleteIssue } = useContext(StoreContext);
+  const { url, updateTime, token, deleteIssue, getAllReports, id } =
+    useContext(StoreContext);
 
   const [updatedStatus, setUpdatedStatus] = useState(rep.status);
 
@@ -21,7 +24,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
   };
 
   useEffect(() => {
-    console.log(token);
+    // token available in context for authenticated requests
   }, [token]);
 
   const submitStatusChange = async (id, status) => {
@@ -34,7 +37,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
             "content-type": "application/json",
             token,
           },
-        }
+        },
       );
       const { data } = response;
       console.log(data);
@@ -42,18 +45,28 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
       if (data.success) {
         toast.success("Status updated successfully");
 
-        await axios.post(`${url}/notification/create`, {
-          receiverId: response.data.updatedIssue.userId,
-          content: `hello there your report: "${response.data.updatedIssue.content.substring(
-            0,
-            20
-          )}... status is updated to ${updatedStatus}". if the issue is still not fixed don't histate to reach us.`,
-          reportId: response.data.updatedIssue._id,
-        });
+        // send notification and refresh list
+        try {
+          await axios.post(`${url}/notification/create`, {
+            receiverId: response.data.updatedIssue.userId,
+            content: `hello there your report: "${response.data.updatedIssue.content.substring(
+              0,
+              20,
+            )}... status is updated to ${updatedStatus}". if the issue is still not fixed don't histate to reach us.`,
+            reportId: response.data.updatedIssue._id,
+          });
+        } catch (e) {
+          console.log("notification error", e);
+        }
+
+        await getAllReports();
         setUpdate(false);
+      } else {
+        toast.error(data.msg || "Failed to update status");
       }
     } catch (error) {
       console.log(error);
+      toast.error("Error updating status");
     }
   };
 
@@ -61,6 +74,9 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
   const optionRef = useRef(null);
 
   const [update, setUpdate] = useState(false);
+
+  const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     const mouseChange = (e) => {
@@ -75,6 +91,33 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
       document.removeEventListener("mousedown", mouseChange);
     };
   }, []);
+
+  const handleToggleComments = () => {
+    setShowComments((s) => !s);
+    setNewComment("");
+  };
+
+  const handleSendComment = async () => {
+    if (!newComment.trim()) return;
+    try {
+      const response = await axios.post(
+        `${url}/comment`,
+        { content: newComment, reportId: rep._id },
+        { headers: { token } },
+      );
+      if (response.data.success) {
+        toast.success("Comment posted");
+        setNewComment("");
+        await getAllReports();
+        setShowComments(true);
+      } else {
+        toast.error(response.data.msg || "Failed to post comment");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error posting comment");
+    }
+  };
 
   return (
     <div
@@ -136,8 +179,80 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
           <Calendar size={12} />
           <span>{updateTime(rep.createdAt)}</span>
         </div>
-        <span>ID: #{rep._id || "N/A"}</span>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleToggleComments}
+            className="p-1.5 rounded-full text-gray-500 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-1"
+            title="View Comments"
+          >
+            <MessageSquare size={14} />
+            {rep.comments && rep.comments.length > 0 && (
+              <span className="text-[11px] text-gray-600">
+                {rep.comments.length}
+              </span>
+            )}
+          </button>
+          <span>ID: #{rep._id || "N/A"}</span>
+        </div>
       </div>
+
+      {/* Comments Section */}
+      {showComments && (
+        <div className="px-5 pb-5 border-t border-gray-100 bg-gray-50/60">
+          <div className="max-w-full">
+            <h4 className="text-xs font-bold text-gray-400 uppercase mb-3 flex items-center gap-2">
+              <MessageSquare size={14} /> Comments
+            </h4>
+
+            <div className="space-y-3 max-h-48 overflow-y-auto mb-4">
+              {rep.comments && rep.comments.length > 0 ? (
+                rep.comments.map((comm, idx) => {
+                  const commenterId = comm.userId?._id || comm.userId;
+                  const isOwn = String(commenterId) === String(id);
+                  return (
+                    <div
+                      key={idx}
+                      className={`flex ${isOwn ? "justify-end" : "justify-start"}`}
+                    >
+                      <div
+                        className={`p-3 rounded-lg text-sm max-w-[86%] ${isOwn ? "bg-blue-50 text-gray-800 border border-blue-100" : "bg-white border border-gray-200 text-gray-700"}`}
+                      >
+                        <div className="flex justify-between mb-1">
+                          <span className="text-[10px] text-gray-400">
+                            {updateTime(comm.createdAt)}
+                          </span>
+                        </div>
+                        <p>{comm.content}</p>
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="text-xs text-gray-400 italic">
+                  No comments yet for this report.
+                </p>
+              )}
+            </div>
+
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Write a comment..."
+                className="w-full pl-4 pr-12 py-2 bg-white border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSendComment()}
+              />
+              <button
+                onClick={handleSendComment}
+                className="absolute right-2 top-1.5 p-1 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
+              >
+                <Send size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {seeOpition && (
         <div

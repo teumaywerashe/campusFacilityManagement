@@ -5,7 +5,7 @@ import { StoreContext } from "../context/store";
 
 function Notifications() {
   const { notifications, getNotification } = useContext(StoreContext);
-  const [filter, setFilter] = useState("all"); // 'all' or 'unread'
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     getNotification();
@@ -25,7 +25,7 @@ function Notifications() {
   };
 
   return (
-    <div className="min-h-screen ml-0  w-full bg-gray-50/50 p-4 md:p-8 font-sans">
+    <div className="min-h-screen w-full sm:ml-64 ml-0 bg-gray-50/50 p-4 md:p-8 font-sans">
       <div className="max-w-full mx-auto">
         
         {/* Header Section */}

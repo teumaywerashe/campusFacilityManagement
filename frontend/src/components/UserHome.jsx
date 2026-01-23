@@ -6,15 +6,16 @@ import MyReport from "./MyReport";
 import Notification from "./Notifications";
 import Setting from "./Setting";
 import NewReport from "./NewReport";
+import { style } from "../style";
 
 function UserHome() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={`${style.homePage} min-h-screen bg-gray-50`}>
     
       <Sidebar />
 
     
-      <main className="lg:ml-64 min-h-screen transition-all duration-300">
+      <main className="min-h-screen transition-all duration-300">
         <div className="p-4 md:p-6 lg:p-8 max-w-7xl mx-auto">
           <Routes>
             <Route path="" element={<Dashboard />} />

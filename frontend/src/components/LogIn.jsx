@@ -9,13 +9,14 @@ import {
   EyeClosedIcon,
   EyeOff,
   ScanEyeIcon,
+  X,
 } from "lucide-react";
 
 // Make sure you have Tailwind configured in your project
 // No external CSS file needed
 
 function LogIn() {
-  const { setToken, setUserName, setId, setRole, url } =
+  const { setToken, setShowLogin, setUserName, setId, setRole, url } =
     useContext(StoreContext);
   const navigate = useNavigate();
 
@@ -71,25 +72,33 @@ function LogIn() {
       toast.error(error.response?.data?.msg || "Somethng went wrong!");
     } finally {
       setLoading(false);
+      setShowLogin(false);
     }
   };
 
   return (
     // Main Container (Full Screen Background)
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex fixed inset-0 z-100 items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       {/* Login Card */}
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-        {/* Header Section */}
-        <div className="text-center">
-          <h2 className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight">
-            {status}
-          </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            {status === "Log in"
-              ? "Welcome back! Please enter your details."
-              : "Create a new account to get started."}
-          </p>
+        <div className="flex justify-between">
+          <div className="text-center">
+            <h2 className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight">
+              {status}
+            </h2>
+
+            <p className="mt-2 text-sm text-gray-600">
+              {status === "Log in"
+                ? "Welcome back! Please enter your details."
+                : "Create a new account to get started."}
+            </p>
+          </div>
+          <button>
+            {" "}
+            <X size={20} onClick={() => setShowLogin(false)} />
+          </button>
         </div>
+        {/* Header Section */}
 
         {/* Form Section */}
         <form className="mt-8 space-y-6" onSubmit={onFormSubmit}>
@@ -188,14 +197,7 @@ function LogIn() {
           </div>
 
           {/* Submit Button */}
-          <div className="">
-            <a
-              className="text-blue-600 cursor-pointer border-b border-b-blue-500"
-              onClick={() => setSeeTest(!seetest)}
-            >
-              show testing email and password
-            </a>
-          </div>
+
           <div
             className={`${
               seetest
@@ -214,7 +216,14 @@ function LogIn() {
               <p>password: 1234</p>{" "}
             </div>
           </div>
-
+          <div className="flex justify-end mb-2">
+            <a
+              className="text-blue-600 font-thn cursor-pointer border-b border-b-blue-500"
+              onClick={() => setSeeTest(!seetest)}
+            >
+              {seetest ? "hide..." : " show testing email and password"}
+            </a>
+          </div>
           <div>
             <button
               type="submit"

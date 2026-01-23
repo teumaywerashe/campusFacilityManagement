@@ -24,4 +24,13 @@ const issueSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
+issueSchema.virtual("comments", {
+    ref: "Comment",
+    localField: "_id",
+    foreignField: "reportId",
+});
+
+issueSchema.set("toJSON", { virtuals: true });
+issueSchema.set("toObject", { virtuals: true });
+
 export default mongoose.model("Issue", issueSchema);

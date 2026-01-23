@@ -13,10 +13,10 @@ function App() {
 
   useEffect(() => {
     if (theme === "dark") {
-      // document.documentElement.classList.remove("light");
+      document.documentElement.classList.remove("light");
       document.documentElement.classList.add("dark");
     } else {
-      // document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("dark");
       document.documentElement.classList.add("light");
     }
   }, [theme]);
@@ -27,15 +27,15 @@ function App() {
       <Navbar />
       <Routes>
         {!token && <Route path="/" element={<Home />}></Route>}
-        {role === "user" ? (
-          <>
-            <Route path="/*" element={<UserHome />}></Route>
-            <Route path="/user/*" element={<UserHome />}></Route>
-          </>
-        ) : (
+        {role && role === "admin" ? (
           <>
             <Route path="/*" element={<AdminHome />}></Route>
             <Route path="/admin/*" element={<AdminHome />}></Route>
+          </>
+        ) : (
+          <>
+            <Route path="/*" element={<UserHome />}></Route>
+            <Route path="/user/*" element={<UserHome />}></Route>
           </>
         )}
       </Routes>

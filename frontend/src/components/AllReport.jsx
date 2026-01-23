@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../context/store";
+import axios from "axios";
+import { toast } from "sonner";
 import {
   Search,
   Filter,
@@ -14,7 +16,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 function AllReport() {
-  const { getAllReports, markAsRead, allReports, url, updateTime } =
+  const { getAllReports, markAsRead, allReports, url, updateTime, token } =
     useContext(StoreContext);
 
   const navigate = useNavigate();
@@ -34,7 +36,7 @@ function AllReport() {
   const filteredReports = allReports?.filter(
     (item) =>
       item.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.status?.toLowerCase().includes(searchTerm.toLowerCase())
+      item.status?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   // Helper for Status Badge Styles
@@ -148,13 +150,37 @@ function AllReport() {
 
                 {/* 3. Status */}
                 <div className="col-span-2">
-                  <span
-                    className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${getStatusStyle(
-                      report.status
-                    )}`}
+                  <select
+                    className={`${getStatusStyle(report.status)} border-2 border-gray-500 cursor-pointer rounded-xl px-2 py-2`}
+                    name="status"
+                    id="status"
+                    value={report.status}
+                    onChange={async (e) => {
+                      const newStatus = e.target.value;
+                      try {
+                        const res = await axios.patch(
+                          `${url}/issue/update/${report._id}`,
+                          { status: newStatus },
+                          { headers: { token } },
+                        );
+                        if (res.data && res.data.success) {
+                          toast.success("Status updated");
+                          await getAllReports();
+                        } else {
+                          toast.error(
+                            res.data.msg || "Failed to update status",
+                          );
+                        }
+                      } catch (err) {
+                        console.error(err);
+                        toast.error("Error updating status");
+                      }
+                    }}
                   >
-                    {report.status}
-                  </span>
+                    <option value="pending">Pending</option>
+                    <option value="in progress">In Progress</option>
+                    <option value="resolved">Resolved</option>
+                  </select>
                 </div>
 
                 {/* 4. Dates */}

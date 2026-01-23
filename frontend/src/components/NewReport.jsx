@@ -67,14 +67,14 @@ function NewReport() {
         toast.success("Report submitted successfully!");
 
         // Notification Logic
-        await axios.post(`${url}/notification/create`, {
-          receiverId: response.data.issue.userId,
-          content: `We have received your report: "${response.data.issue.content.substring(
-            0,
-            20
-          )}...". Thank you.`,
-          reportId: response.data.issue._id,
-        });
+        // await axios.post(`${url}/notification/create`, {
+        //   receiverId: response.data.issue.userId,
+        //   content: `We have received your report: "${response.data.issue.content.substring(
+        //     0,
+        //     20
+        //   )}...". Thank you.`,
+        //   reportId: response.data.issue._id,
+        // });
 
         navigate("/user/dashboard");
       }
@@ -87,9 +87,64 @@ function NewReport() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center p-6 font-sans">
+    <div className="min-h-screen w-full ml-0 sm:ml-64 bg-gray-50 flex items-center justify-center p-6 font-sans">
       <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 flex flex-col md:flex-row">
         {/* --- LEFT SIDE: Form & Inputs --- */}
+        <div className="w-full md:w-2/5 bg-gray-50 p-8 border-l border-gray-100 hidden sm:flex flex-col justify-center items-center relative">
+          <div className="absolute top-6 right-6 text-gray-300">
+            <MapPin size={100} className="opacity-10 rotate-12" />
+          </div>
+
+          <label className="text-sm font-semibold text-gray-700 mb-4 w-full text-left md:text-center">
+            Evidence Photo
+          </label>
+
+          <div
+            onClick={() => fileInputRef.current.click()}
+            className={`
+              relative w-full aspect-[3/4] md:aspect-auto md:h-96 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer overflow-hidden flex flex-col items-center justify-center group
+              ${
+                selectedImage
+                  ? "border-blue-500 bg-white shadow-md"
+                  : "border-gray-300 hover:border-blue-400 hover:bg-white"
+              }
+            `}
+          >
+            {selectedImage ? (
+              <>
+                <img
+                  src={selectedImage}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                />
+                {/* Overlay for changing image */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-medium">
+                  Click to Change
+                </div>
+                {/* Remove Button */}
+                <button
+                  onClick={removeImage}
+                  className="absolute top-3 right-3 p-1.5 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-500 hover:text-white transition-colors border border-white/30"
+                >
+                  <X size={16} />
+                </button>
+              </>
+            ) : (
+              <div className="text-center p-6 space-y-4">
+                <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                  <Upload size={32} />
+                </div>
+                <div>
+                  <h3 className="text-gray-900 font-medium">Click to Upload</h3>
+                  <p className="text-gray-500 text-xs mt-1">
+                    SVG, PNG, JPG (Max 5MB)
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
         <div className="w-full md:w-3/5 p-8 md:p-10 flex flex-col">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">
@@ -210,62 +265,7 @@ function NewReport() {
             </div>
           </form>
         </div>
-
         {/* --- RIGHT SIDE: Image Upload Area --- */}
-        <div className="w-full md:w-2/5 bg-gray-50 p-8 border-l border-gray-100 hidden sm:flex flex-col justify-center items-center relative">
-          <div className="absolute top-6 right-6 text-gray-300">
-            <MapPin size={100} className="opacity-10 rotate-12" />
-          </div>
-
-          <label className="text-sm font-semibold text-gray-700 mb-4 w-full text-left md:text-center">
-            Evidence Photo
-          </label>
-
-          <div
-            onClick={() => fileInputRef.current.click()}
-            className={`
-              relative w-full aspect-[3/4] md:aspect-auto md:h-96 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer overflow-hidden flex flex-col items-center justify-center group
-              ${
-                selectedImage
-                  ? "border-blue-500 bg-white shadow-md"
-                  : "border-gray-300 hover:border-blue-400 hover:bg-white"
-              }
-            `}
-          >
-            {selectedImage ? (
-              <>
-                <img
-                  src={selectedImage}
-                  alt="Preview"
-                  className="w-full h-full object-cover"
-                />
-                {/* Overlay for changing image */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-medium">
-                  Click to Change
-                </div>
-                {/* Remove Button */}
-                <button
-                  onClick={removeImage}
-                  className="absolute top-3 right-3 p-1.5 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-500 hover:text-white transition-colors border border-white/30"
-                >
-                  <X size={16} />
-                </button>
-              </>
-            ) : (
-              <div className="text-center p-6 space-y-4">
-                <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
-                  <Upload size={32} />
-                </div>
-                <div>
-                  <h3 className="text-gray-900 font-medium">Click to Upload</h3>
-                  <p className="text-gray-500 text-xs mt-1">
-                    SVG, PNG, JPG (Max 5MB)
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
       </div>
     </div>
   );

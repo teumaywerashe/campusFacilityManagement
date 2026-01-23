@@ -10,15 +10,14 @@ import {
 } from "lucide-react";
 import { StoreContext } from "../context/store";
 
-import { HiSun, HiMoon } from "react-icons/hi";
 
 function Navbar() {
-  const { token, setTheme, theme, role, showSidebar, setShowSidebar } =
+  const { token,showLogin,setShowLogin, role, showSidebar, setShowSidebar } =
     useContext(StoreContext);
   const navigate = useNavigate();
 
   return (
-    <nav className="sticky top-0  z-50 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
+    <nav className="sticky top-0  z-100 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
       <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* --- LEFT SIDE: MENU TOGGLE & LOGO --- */}
@@ -39,7 +38,7 @@ function Navbar() {
               className="flex items-center gap-3 cursor-pointer group"
               onClick={() => navigate("/")}
             >
-              <div className="hidden relative w-10 h-10 lg:flex items-center justify-center bg-gradient-to-br from-indigo-600 to-blue-700 rounded-xl shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
+              <div className="hidden relative w-10 h-10 lg:flex items-center justify-center bg-gradient-to-br from-indigo-600 to-blue-700 rounded-full shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
                 <Wrench className="text-white w-5 h-5 absolute" />
                 <div className="absolute top-1 right-1 w-2 h-2 bg-yellow-300 rounded-full opacity-80"></div>
                 <div className="absolute bottom-1 right-1 w-2 h-2 bg-sky-300 rounded-full opacity-80"></div>
@@ -56,7 +55,6 @@ function Navbar() {
           <div className="flex items-center gap-4">
             {token ? (
               <>
-              
                 {role === "user" && (
                   <button
                     onClick={() => navigate("user/newReport")}
@@ -75,16 +73,7 @@ function Navbar() {
                     <Plus size={18} />
                   </button>
                 )}
-  <button
-                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                  className="p-1 h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-yellow-400 transition-colors"
-                >
-                  {theme === "light" ? (
-                    <HiMoon size={24} />
-                  ) : (
-                    <HiSun size={24} />
-                  )}
-                </button>
+ 
                 <div className="flex items-center gap-3 pl-2 border-l border-gray-200 ml-2">
                   <div className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 transition-all cursor-pointer">
                     <User size={20} />
@@ -93,22 +82,13 @@ function Navbar() {
               </>
             ) : (
               <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                  className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-yellow-400 transition-colors"
-                >
-                  {theme === "light" ? (
-                    <HiMoon size={24} />
-                  ) : (
-                    <HiSun size={24} />
-                  )}
-                </button>
-                <a href="#login">
-                  <button className="flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-slate-300 hover:shadow-slate-400 transform hover:-translate-y-0.5">
+             
+               
+                  <button onClick={() => setShowLogin(!showLogin)} className="flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-slate-300 hover:shadow-slate-400 transform hover:-translate-y-0.5">
                     <span>Get Started</span>
                     <LogInIcon size={16} />
                   </button>
-                </a>
+              
               </div>
             )}
           </div>

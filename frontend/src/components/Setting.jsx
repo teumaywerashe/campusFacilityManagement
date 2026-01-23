@@ -50,7 +50,7 @@ function Setting() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-50/50 p-6 flex justify-center items-start md:items-center font-sans">
+    <div className="min-h-screen ml-0 sm:ml-64 w-full bg-gray-50/50 p-6 flex justify-center items-start md:items-center font-sans">
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
         
         {/* Header */}
