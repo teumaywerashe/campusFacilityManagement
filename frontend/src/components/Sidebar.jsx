@@ -16,7 +16,9 @@ function Sidebar() {
   const {
     notifications,
     showSidebar,
-    setShowSidebar,role,userName,
+    setShowSidebar,
+    role,
+    userName,
     logout,
     getNotification,
   } = useContext(StoreContext);
@@ -67,7 +69,7 @@ function Sidebar() {
               <ShieldCheck size={20} className="text-white" />
             </div>
             <span>
-              Student <span className="text-blue-600">Panel</span>
+              User <span className="text-blue-600">Panel</span>
             </span>
           </div>
         </div>
@@ -146,7 +148,9 @@ function Sidebar() {
               <p className="text-sm font-semibold capitalize text-white truncate">
                 {userName}
               </p>
-              <p className="text-xs capitalize text-gray-500 truncate">{role} Account</p>
+              <p className="text-xs capitalize text-gray-500 truncate">
+                {role} Account
+              </p>
             </div>
 
             {/* Logout Button */}
@@ -158,7 +162,8 @@ function Sidebar() {
             </button>
           </div>
           <button
-            onClick={handleLogout} type='button'
+            onClick={handleLogout}
+            type="button"
             className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 hover:text-red-700 transition-colors"
           >
             <LogOut size={16} />
@@ -166,8 +171,6 @@ function Sidebar() {
           </button>
         </div>
       </div>
-
-     
     </>
   );
 }

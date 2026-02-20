@@ -83,10 +83,7 @@ function Notifications() {
           {filteredNotifications.length > 0 ? (
             filteredNotifications.map((noti, i) => (
               <div key={i} className="border-b border-gray-100 last:border-0">
-                {/* 
-                   Note: The 'Notification' component from the previous step 
-                   handles its own hover effects and background color.
-                */}
+              
                 <Notification noti={noti} />
               </div>
             ))

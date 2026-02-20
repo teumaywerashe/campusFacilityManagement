@@ -13,7 +13,7 @@ export const StoreContextProvider = ({ children }) => {
 
   const [theme, setTheme] = useState("light");
 
-  const [showLogin,setShowLogin]=useState(true);
+  const [showLogin,setShowLogin]=useState(false);
 
   const [report, setReport] = useState([]);
   const [allReports, setAllReports] = useState([]);

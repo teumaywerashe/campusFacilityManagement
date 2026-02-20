@@ -27,7 +27,7 @@ function MyReport() {
   }, []);
 
   return (
-    <div className="min-h-screen ml-0 sm:ml-64 mx-auto bg-gray-50/50 p-6 font-sans">
+    <div className="min-h-screen w-full ml-0 sm:ml-64 mx-auto bg-gray-50/50 p-6 font-sans">
       <div className="max-w-6xl mx-auto">
         <div className="mb-6 flex justify-between items-center">
           <div>

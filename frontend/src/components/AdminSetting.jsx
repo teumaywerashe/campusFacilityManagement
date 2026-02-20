@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { 
   User, 
   Lock, 
@@ -11,14 +11,16 @@ import {
   Save
 } from 'lucide-react';
 import { admin } from "../images/image"; // Assuming you have this image
+import { StoreContext } from '../context/store';
 
 function AdminSetting() {
   // Mock states to show interactivity
+  const {userName, role} =useContext(StoreContext); // Replace with actual context data
   const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="min-h-screen ml-0 sm:ml-64 w-full bg-gray-50 p-6 md:p-10 font-sans text-gray-800">
+    <div className="min-h-screen w-full ml-0 sm:ml-64 w-full bg-gray-50 p-6 md:p-10 font-sans text-gray-800">
       
       {/* --- Page Header --- */}
       <div className="max-w-4xl mx-auto mb-10">
@@ -64,18 +66,18 @@ function AdminSetting() {
             {/* Form Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">First Name</label>
+                <label className="text-sm font-medium text-gray-700">User Name</label>
                 <input 
                   type="text" 
-                  defaultValue="Teumay" 
+                  defaultValue={userName}
                   className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all bg-gray-50/50 focus:bg-white"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Last Name</label>
+                <label className="text-sm font-medium text-gray-700">Role</label>
                 <input 
                   type="text" 
-                  defaultValue="Student" 
+                  defaultValue={role} 
                   className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all bg-gray-50/50 focus:bg-white"
                 />
               </div>
@@ -84,7 +86,7 @@ function AdminSetting() {
                 <textarea 
                   rows="3"
                   className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all bg-gray-50/50 focus:bg-white resize-none"
-                  defaultValue="Admin managing the student report system."
+                  defaultValue={`${role === "admin" ? "Admin managing the student report system." : "User managing their own reports."}`}
                 ></textarea>
               </div>
             </div>

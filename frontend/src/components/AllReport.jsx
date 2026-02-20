@@ -12,11 +12,12 @@ import {
   CheckCircle2,
   Clock,
   AlertCircle,
+  Trash2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function AllReport() {
-  const { getAllReports, markAsRead, allReports, url, updateTime, token } =
+  const { getAllReports, deleteIssue, markAsRead, allReports, url, updateTime, token } =
     useContext(StoreContext);
 
   const navigate = useNavigate();
@@ -217,8 +218,8 @@ function AllReport() {
                   >
                     <Eye size={18} />
                   </button>
-                  <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                    <MoreHorizontal size={18} />
+                  <button onClick={() => deleteIssue(report._id)} className="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                   <Trash2 className="text-red-500" size={18} />
                   </button>
                 </div>
               </div>

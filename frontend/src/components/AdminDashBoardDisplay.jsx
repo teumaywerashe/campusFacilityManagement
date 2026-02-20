@@ -122,7 +122,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
   return (
     <div
       key={i}
-      className="bg-white relative rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 flex flex-col group overflow-hidden"
+      className="bg-white w-full relative rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 flex flex-col group overflow-hidden"
     >
       {/* Card Header */}
       <div className="p-5 pb-3 flex justify-between items-start">

@@ -69,7 +69,7 @@ function Dashboard() {
   );
 
   return (
-    <div className="min-h-screen ml-0 sm:ml-64 bg-gray-50 p-6 md:p-10 font-sans">
+    <div className="min-h-screen w-full ml-0 sm:ml-64 bg-gray-50 p-6 md:p-10 font-sans">
       {/* --- Header Section --- */}
       <div className="max-w-6xl mx-auto mb-8">
         <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">

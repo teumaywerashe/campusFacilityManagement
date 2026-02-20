@@ -83,6 +83,11 @@ function LandingPage() {
                       </div>
                     </div>
                   </div>
+                  <div className="flex justify-center mt-6">
+                    <button className="px-6 py-3 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-700 transition-colors">
+                      View All Reports
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
