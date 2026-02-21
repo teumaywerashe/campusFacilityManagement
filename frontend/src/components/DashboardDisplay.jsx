@@ -95,7 +95,7 @@ function DashboardDisplay({ rep, key, id, setSelectedImage }) {
           {rep.content}
         </p>
 
-        <div className="mt-auto pt-4 border-t border-gray-50 flex items-center text-xs text-gray-400 justify-between">
+        <div className="mt-auto  pt-4 border-t border-gray-full h-full flex items-center text-xs text-gray-400 justify-between">
           <span>Posted: {updateTime(rep.createdAt)}</span>
           <button    onClick={() => setShowComments(!showComments)}
 
@@ -111,7 +111,7 @@ function DashboardDisplay({ rep, key, id, setSelectedImage }) {
 
         {/* Comments section for each card */}
         {showComments && (
-          <div className="absolute top-0 left-0 bg-gray-400 w-full no-scrollbar rounded-xl shadow-lg z-10">
+          <div className="absolute w-full  top-0 left-0 bg-gray-100   rounded-xl shadow-lg z-10">
             {" "}
             <div className="px-5 pb-5 border-t border-gray-100 bg-gray-50/60">
               <div className="max-w-full">
@@ -121,7 +121,7 @@ function DashboardDisplay({ rep, key, id, setSelectedImage }) {
                     <X size={18} onClick={() => setShowComments(false)} />
                   </button>
                 </h4>
-                <div className="space-y-3 max-h-48 overflow-y-auto mb-4">
+                <div className="space-y-3 max-h-48 overflow-y-auto mb-4 no-scrollbar">
                   {rep.comments && rep.comments.length > 0 ? (
                     rep.comments.map((comm, idx) => {
                       const commenterId = comm.userId?._id || comm.userId;
@@ -155,7 +155,7 @@ function DashboardDisplay({ rep, key, id, setSelectedImage }) {
                   <input
                     type="text"
                     placeholder="Write a comment..."
-                    className="w-full pl-4 pr-12 py-2 bg-white border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                    className="w-full  pl-4 pr-12 py-2 bg-white border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     onKeyPress={(e) =>
