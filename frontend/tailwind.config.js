@@ -3,8 +3,11 @@ export default {
     theme: {
         extend: {},
     },
-    darkMode: 'class', // enables toggling via a CSS class
-    plugins: [],
+    darkMode: 'class',
+    plugins: [
+            import ('tailwind-scrollbar-hide')
+        ] // enables toggling via a CSS class
+        ,
 };
 
 // export default = {

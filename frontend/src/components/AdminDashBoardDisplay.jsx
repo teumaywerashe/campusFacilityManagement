@@ -122,7 +122,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
   return (
     <div
       key={i}
-      className="bg-white w-full relative rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 flex flex-col group overflow-hidden"
+      className="bg-white relative w-full rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-gray-100 transition-all duration-300 flex flex-col group overflow-hidden"
     >
       {/* Card Header */}
       <div className="p-5 pb-3 flex justify-between items-start">
@@ -192,63 +192,68 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
               </span>
             )}
           </button>
-          <span>ID: #{rep._id || "N/A"}</span>
+       
         </div>
       </div>
 
       {/* Comments Section */}
       {showComments && (
-        <div className="px-5 pb-5 border-t border-gray-100 bg-gray-50/60">
-          <div className="max-w-full">
-            <h4 className="text-xs font-bold text-gray-400 uppercase mb-3 flex items-center gap-2">
-              <MessageSquare size={14} /> Comments
-            </h4>
-
-            <div className="space-y-3 max-h-48 overflow-y-auto mb-4">
-              {rep.comments && rep.comments.length > 0 ? (
-                rep.comments.map((comm, idx) => {
-                  const commenterId = comm.userId?._id || comm.userId;
-                  const isOwn = String(commenterId) === String(id);
-                  return (
-                    <div
-                      key={idx}
-                      className={`flex ${isOwn ? "justify-end" : "justify-start"}`}
-                    >
+        <div className="absolute bg-gray-400 w-full no-scrollbar rounded-xl shadow-lg z-10">
+          {" "}
+          <div className="px-5 pb-5 border-t border-gray-100 bg-gray-50/60">
+            <div className="max-w-full">
+              <h4 className="text-xs justify-between font-bold text-gray-400 uppercase mb-3 flex items-center gap-2">
+                <MessageSquare size={14} /> Comments
+                <button onClick={()=>setShowComments(!showComments)} className="text-sm">
+                  <X size={18} />
+                </button>
+              </h4>
+              <div className="space-y-3 max-h-48 overflow-y-auto mb-4">
+                {rep.comments && rep.comments.length > 0 ? (
+                  rep.comments.map((comm, idx) => {
+                    const commenterId = comm.userId?._id || comm.userId;
+                    const isOwn = String(commenterId) === String(id);
+                    return (
                       <div
-                        className={`p-3 rounded-lg text-sm max-w-[86%] ${isOwn ? "bg-blue-50 text-gray-800 border border-blue-100" : "bg-white border border-gray-200 text-gray-700"}`}
+                        key={idx}
+                        className={`flex ${isOwn ? "justify-end" : "justify-start"}`}
                       >
-                        <div className="flex justify-between mb-1">
-                          <span className="text-[10px] text-gray-400">
-                            {updateTime(comm.createdAt)}
-                          </span>
+                        <div
+                          className={`p-3 rounded-lg text-sm max-w-[86%] ${isOwn ? "bg-blue-50 text-gray-800 border border-blue-100" : "bg-white border border-gray-200 text-gray-700"}`}
+                        >
+                          <div className="flex justify-between mb-1">
+                            <span className="text-[10px] text-gray-400">
+                              {updateTime(comm.createdAt)}
+                            </span>
+                          </div>
+                          <p>{comm.content}</p>
                         </div>
-                        <p>{comm.content}</p>
                       </div>
-                    </div>
-                  );
-                })
-              ) : (
-                <p className="text-xs text-gray-400 italic">
-                  No comments yet for this report.
-                </p>
-              )}
-            </div>
+                    );
+                  })
+                ) : (
+                  <p className="text-xs text-gray-400 italic">
+                    No comments yet for this report.
+                  </p>
+                )}
+              </div>
 
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Write a comment..."
-                className="w-full pl-4 pr-12 py-2 bg-white border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSendComment()}
-              />
-              <button
-                onClick={handleSendComment}
-                className="absolute right-2 top-1.5 p-1 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
-              >
-                <Send size={18} />
-              </button>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Write a comment..."
+                  className="w-full pl-4 pr-12 py-2 bg-white border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  onKeyPress={(e) => e.key === "Enter" && handleSendComment()}
+                />
+                <button
+                  onClick={handleSendComment}
+                  className="absolute right-2 top-1.5 p-1 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
+                >
+                  <Send size={18} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
