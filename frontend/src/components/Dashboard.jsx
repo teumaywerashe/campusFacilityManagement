@@ -38,7 +38,7 @@ function Dashboard() {
       </div>
 
       {/* --- Filter Tabs --- */}
-      <div className="max-w-6xl mx-auto mb-8">
+      <div className="max-w-xl mx-auto mb-8">
         <div className="flex items-center mx-auto justify-between p-1 bg-white border border-gray-200 rounded-xl shadow-sm">
           {["All", "Pending", "In Progress", "Resolved"].map((tab) => (
             <button
