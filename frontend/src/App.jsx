@@ -9,6 +9,7 @@ import { StoreContext } from "./context/store.jsx";
 import AdminHome from "./components/AdminHome.jsx";
 
 function App() {
+  
   const { role, theme, token } = useContext(StoreContext);
 
   useEffect(() => {
