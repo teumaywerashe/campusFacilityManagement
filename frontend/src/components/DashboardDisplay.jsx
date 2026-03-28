@@ -112,7 +112,7 @@ function DashboardDisplay({ rep, key, id, setSelectedImage }) {
         {/* Comments section for each card */}
         {showComments && (
           <div className="absolute w-full  top-0 left-0 bg-gray-100   rounded-xl shadow-lg z-10">
-            {" "}
+    
             <div className="px-5 pb-5 border-t border-gray-100 bg-gray-50/60">
               <div className="max-w-full">
                 <h4 className="text-xs justify-between font-bold text-gray-400 uppercase mb-3 flex items-center gap-2">
