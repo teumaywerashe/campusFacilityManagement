@@ -1,31 +1,41 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     role: {
-        type: String,
-        default: "user",
+      type: String,
+      default: "user",
     },
     profileImage: {
-        type: String,
-        default: 'admin.jpg'
+      type: String,
+      default: "admin.jpg",
     },
     resetPasswordToken: { type: String },
     resetPasswordExpiry: { type: Date },
-}, { timestamps: true });
+  },
+  { timestamps: true },
+);
+
+userSchema.index(
+  { email: 1 },
+  {
+    unique: true,
+  },
+);
 
 export default mongoose.model("User", userSchema);
