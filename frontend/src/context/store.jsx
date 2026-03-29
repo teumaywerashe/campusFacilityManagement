@@ -7,9 +7,9 @@ import { toast } from "sonner";
 export const StoreContext = createContext();
 
 export const StoreContextProvider = ({ children }) => {
-  const url = 
+  const url=
   import.meta.env.VITE_API_URL;
-  // "http://localhost:4000";
+  // "http://localhost:3000";
 
   const [theme, setTheme] = useState("light");
 

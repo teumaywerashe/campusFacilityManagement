@@ -7,6 +7,7 @@ import { Toaster } from "sonner";
 import { useContext, useEffect } from "react";
 import { StoreContext } from "./context/store.jsx";
 import AdminHome from "./components/AdminHome.jsx";
+import ResetPassword from "./components/ResetPassword.jsx";
 
 function App() {
   
@@ -27,6 +28,7 @@ function App() {
       <Toaster position="top-right" />
       <Navbar />
       <Routes>
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         {!token && <Route path="/" element={<Home />}></Route>}
         {role && role === "admin" ? (
           <>

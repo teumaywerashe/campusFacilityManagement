@@ -11,6 +11,7 @@ import {
   ScanEyeIcon,
   X,
 } from "lucide-react";
+import ForgotPassword from "./ForgotPassword";
 
 // Make sure you have Tailwind configured in your project
 // No external CSS file needed
@@ -24,6 +25,7 @@ function LogIn() {
   const [status, setStatus] = useState("Log in");
   const [loading, setLoading] = useState(false);
   const [seetest, setSeeTest] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -78,6 +80,14 @@ function LogIn() {
 
   return (
     // Main Container (Full Screen Background)
+    <>
+    {showForgot && (
+      <ForgotPassword
+        onClose={() => setShowForgot(false)}
+        onBackToLogin={() => setShowForgot(false)}
+      />
+    )}
+    {!showForgot && (
     <div className="min-h-screen flex fixed inset-0 z-100 items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       {/* Login Card */}
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-100">
@@ -189,7 +199,7 @@ function LogIn() {
             <div className="text-sm">
               <span
                 className="font-medium text-indigo-600 hover:text-indigo-500 cursor-pointer"
-                onClick={() => toast.info("Feature coming soon!")}
+                onClick={() => setShowForgot(true)}
               >
                 Forgot password?
               </span>
@@ -261,6 +271,8 @@ function LogIn() {
         </form>
       </div>
     </div>
+    )}
+    </>
   );
 }
 

@@ -23,7 +23,9 @@ const userSchema = new mongoose.Schema({
     profileImage: {
         type: String,
         default: 'admin.jpg'
-    }
+    },
+    resetPasswordToken: { type: String },
+    resetPasswordExpiry: { type: Date },
 }, { timestamps: true });
 
 export default mongoose.model("User", userSchema);

@@ -26,9 +26,6 @@ import { swaggerSpec } from "./swagger.js";
 
 const PORT = process.env.PORT || 3000;
 app.use("/uploads", express.static("uploads"));
-app.get("/TEST", (req, res) =>
-  res.send("Server is running!\n this is to test the server"),
-);
 
 // Swagger UI and JSON
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
