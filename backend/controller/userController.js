@@ -11,7 +11,7 @@ export const registerUser = async(req, res) => {
         const { name, email, password } = req.body;
 
         if (!emailRegex.test(email)) {
-            return res.status(400).json({ success: false, msg: "Invalid email ❌" });
+            return res.status(400).json({ success: false, msg: "Invalid email " });
         }
 
         const exist = await User.findOne({ email });
@@ -53,7 +53,7 @@ export const loginUser = async(req, res) => {
         const { email, password } = req.body;
 
         if (!emailRegex.test(email)) {
-            return res.status(200).json({ success: false, msg: "Invalid email ❌" });
+            return res.status(200).json({ success: false, msg: "Invalid email " });
         }
 
         const user = await User.findOne({ email });
@@ -107,7 +107,7 @@ export const forgotPassword = async(req, res) => {
         const { email } = req.body;
 
         if (!emailRegex.test(email)) {
-            return res.status(400).json({ success: false, msg: "Invalid email ❌" });
+            return res.status(400).json({ success: false, msg: "Invalid email " });
         }
 
         const user = await User.findOne({ email });
@@ -132,7 +132,7 @@ export const forgotPassword = async(req, res) => {
         });
 
         await transporter.sendMail({
-            from: `"Campus Facility" <${process.env.EMAIL_USER}>`,
+            from: `"Campus Facility Management" <${process.env.EMAIL_USER}>`,
             to: user.email,
             subject: "Reset Your Password",
             html: `
