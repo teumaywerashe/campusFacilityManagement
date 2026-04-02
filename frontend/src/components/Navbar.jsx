@@ -84,7 +84,7 @@ function Navbar() {
               <div className="flex items-center gap-3">
              
                
-                  <button onClick={() => setShowLogin(!showLogin)} className="flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-slate-300 hover:shadow-slate-400 transform hover:-translate-y-0.5">
+                  <button onClick={() => setShowLogin(!showLogin)} className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-indigo-300 hover:shadow-indigo-400 transform hover:-translate-y-0.5">
                     <span>Get Started</span>
                     <LogInIcon size={16} />
                   </button>

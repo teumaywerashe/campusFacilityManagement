@@ -23,11 +23,11 @@ export const style = {
     forgotLink: "text-[#2e78b9] font-medium transition duration-200 hover:underline hover:text-[#0a62e7]",
 
     loginContainer: "flex flex-col gap-[20px]",
-    loginButton: "bg-black text-white cursor-pointer rounded-[20px] font-bold text-lg px-[20px] py-[15px] mt-[40px] w-[60%] block",
+    loginButton: "bg-indigo-600 text-white cursor-pointer rounded-[20px] font-bold text-lg px-[20px] py-[15px] mt-[40px] w-[60%] block hover:bg-indigo-700 transition-colors",
 
-    changeStatusSpan: "text-[#2e78b9] cursor-pointer ml-[5px]",
+    changeStatusSpan: "text-indigo-600 cursor-pointer ml-[5px] hover:text-indigo-700",
 
-    sendNotificationButton: "flex  items-center bg-[#17ee17] border-0 cursor-pointer gap-[10px] px-[10px] py-[10px] rounded-[10px] text-black hover:text-[white] hover:bg-[#adff2f]",
+    sendNotificationButton: "flex  items-center bg-indigo-600 border-0 cursor-pointer gap-[10px] px-[10px] py-[10px] rounded-[10px] text-white hover:bg-indigo-700 transition-colors",
 
     opition: "relative cursor-pointer ",
     opitionButtons: "relative",
@@ -51,7 +51,7 @@ export const style = {
   hover:bg-[#fdfdfd] hover:-translate-y-[2px] hover:shadow-[0_2px_8px_rgba(0,0,0,0.05)]
   max-[768px]:flex max-[768px]:flex-col max-[768px]:items-start max-[768px]:p-[15px] max-[768px]:gap-[8px]
 `,
-    deleteReport: "border-0 py-[6px] px-[6px] rounded-[6px]  text-red cursor-pointer items-center hover:bg-[#f8d7da] mx-[10px] hover:text-[#c82333]",
+    deleteReport: "border-0 py-[6px] px-[6px] rounded-[6px] text-black cursor-pointer items-center hover:bg-gray-100 mx-[10px] hover:text-gray-700 transition-colors",
     reportImage: "w-[45px] h-[45px] rounded-full object-cover border-2 border-[#e0e0e0] max-md:mb-2",
 
     read: `${myReportDisplayBase} bg-[#fafafa]`,
@@ -64,8 +64,8 @@ export const style = {
     reportStatusResolved: "bg-[#e6f9ef] text-[#2b8a3e]",
     reportDates: "text-[13px] text-[#777]",
 
-    deleteButton: "flex  items-center bg-[red] border-0 cursor-pointer gap-[10px] px-[10px] py-[10px] rounded-[10px] text-white hover:text-[red] hover:bg-[grey]",
-    markAsReadButton: "flex text-white items-center gap-[10px] bg-[#000000] px-[10px] py-[10px] cursor-pointer rounded-[10px] hover:text-[black] hover:bg-[white] hover:border-[1px] border-0",
+    deleteButton: "flex  items-center bg-black border-0 cursor-pointer gap-[10px] px-[10px] py-[10px] rounded-[10px] text-white hover:bg-gray-800 transition-colors",
+    markAsReadButton: "flex text-white items-center gap-[10px] bg-indigo-600 px-[10px] py-[10px] cursor-pointer rounded-[10px] hover:bg-indigo-700 transition-colors border-0",
     rightPage: "w-[75%] max-w[900px] my-[25px] mx-[10px] px-[20px] py-[10px] bg-[#ffffff] rounded-[12px] max-md:w-[80%] max-md:m-[10px_auto]",
     rightPageHeading: "text-[56px] font-semibold text-[#333] mb-[20px] max-md:text-[32px]",
     requestStatus: "flex gap-[20px] mb-[20px] pb-[10px] border-b border-[#e0e0e0] max-md:flex-wrap max-md:gap-[5px]",
@@ -174,7 +174,7 @@ export const style = {
     userPasswordInput: "w-[100%] p-[12px_14px] border-[1px] border-[#ccc] rounded[10px] rounded-[10px] text-[15px] outline-none transition-border duration-200 ease-linear focus",
     passwordCheck: "flex gap-[10px] items-center cursor-pointer",
     passwordCheckInput: "cursor-pointer",
-    settingButton: "bg-[#4f46e5] w-[100px] text-center text-[white] border-0 p-[12px_20px] rounded-[10px] text-[16px] cursor-pointer mt-[10px] transition-colors duration-300 ease-linear hover:bg-[#3730a3]",
+    settingButton: "bg-indigo-600 w-[100px] text-center text-[white] border-0 p-[12px_20px] rounded-[10px] text-[16px] cursor-pointer mt-[10px] transition-colors duration-300 ease-linear hover:bg-indigo-700",
     userHome: "m-[0px] min-h-[100vh] flex bg-[#aea6a6d6] max-[400px]:flex-col",
     navbarProfileUser: "hidden max-[500px]:flex max-[500px]:cursor-pointer",
     getStartedButton: "p-[10px] border-0 cursor-pointer bg-[tomato] rounded-[10px]",
@@ -189,6 +189,6 @@ export const style = {
     newReportImage: 'w-auto bg-white flex flex-col  gap-[5px]',
     newReportImageContainer: 'w-[40%] h-[100%] cursor-pointer items-center m-[auto]',
     newReportFileInput: 'border-[1px] border-[grey] cursor-pointer rounded-[5px]',
-    submitButton: 'flex p-[5px_10px] text-[24px] m-[10px_auto] text-center items-center bg-[#17ee17] cursor-pointer w-[50%] rounded-[10px]'
+    submitButton: 'flex p-[5px_10px] text-[24px] m-[10px_auto] text-center items-center bg-indigo-600 text-white cursor-pointer w-[50%] rounded-[10px] hover:bg-indigo-700 transition-colors'
 
 };

@@ -44,7 +44,7 @@ function Sidebar() {
     `relative flex items-center gap-3 px-4 py-3.5 text-sm font-medium transition-all duration-200 rounded-xl mx-2
     ${
       isActive
-        ? "bg-blue-600 text-white shadow-lg shadow-blue-900/20"
+        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-900/20"
         : "text-gray-400 hover:bg-gray-800 hover:text-white"
     }`;
 
@@ -65,11 +65,11 @@ function Sidebar() {
         {/* 1. Header / Brand (Optional - can be removed if Navbar covers branding) */}
         <div className="h-20 shrink-0 flex items-center px-6 border-b border-gray-800 mb-2">
           <div className="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
-            <div className="bg-blue-600 p-1.5 rounded-lg">
+            <div className="bg-indigo-600 p-1.5 rounded-lg">
               <ShieldCheck size={20} className="text-white" />
             </div>
             <span>
-              User <span className="text-blue-600">Panel</span>
+              User <span className="text-indigo-600">Panel</span>
             </span>
           </div>
         </div>
@@ -164,10 +164,10 @@ function Sidebar() {
           <button
             onClick={handleLogout}
             type="button"
-            className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100 hover:text-red-700 transition-colors"
+            className="w-full mt-3 flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-white bg-black rounded-lg hover:bg-gray-800 transition-colors"
           >
             <LogOut size={16} />
-            <span className="text-[red]">Sign Out</span>
+            <span>Sign Out</span>
           </button>
         </div>
       </div>

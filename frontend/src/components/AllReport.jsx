@@ -213,7 +213,7 @@ function AllReport() {
                       markAsRead("issue", report._id);
                       navigate("/admin/dashboard");
                     }}
-                    className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                    className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                     title="View Details"
                   >
                     <Eye size={18} />

@@ -245,11 +245,11 @@ function NewReport() {
                 type="submit"
                 disabled={isLoading}
                 className={`
-                  w-full py-4 rounded-xl text-white font-bold text-lg shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]
+                  w-full py-4 rounded-xl text-white font-bold text-lg shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 transition-all transform active:scale-[0.98]
                   ${
                     isLoading
-                      ? "bg-blue-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700 hover:shadow-blue-600/40"
+                      ? "bg-indigo-400 cursor-not-allowed"
+                      : "bg-indigo-600 hover:bg-indigo-700 hover:shadow-indigo-600/40"
                   }
                 `}
               >

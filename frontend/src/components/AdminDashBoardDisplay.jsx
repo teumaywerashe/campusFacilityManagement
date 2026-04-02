@@ -182,7 +182,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
         <div className="flex items-center gap-2">
           <button
             onClick={handleToggleComments}
-            className="p-1.5 rounded-full text-gray-500 hover:bg-gray-100 hover:text-blue-600 transition-colors flex items-center gap-1"
+            className="p-1.5 rounded-full text-gray-500 hover:bg-gray-100 hover:text-indigo-600 transition-colors flex items-center gap-1"
             title="View Comments"
           >
             <MessageSquare size={14} />
@@ -249,7 +249,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
                 />
                 <button
                   onClick={handleSendComment}
-                  className="absolute right-2 top-1.5 p-1 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
+                  className="absolute right-2 top-1.5 p-1 text-indigo-500 hover:bg-indigo-50 rounded-full transition-colors"
                 >
                   <Send size={18} />
                 </button>
@@ -378,7 +378,7 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }) {
               </button>
               <button
                 onClick={() => submitStatusChange(rep._id, updatedStatus)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md shadow-blue-200 transition-all active:scale-95"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-medium shadow-md shadow-indigo-200 transition-all active:scale-95"
               >
                 Save Changes
               </button>

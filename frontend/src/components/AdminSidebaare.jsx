@@ -33,7 +33,7 @@ function AdminSidebar() {
   const baseLinkClass = "group flex items-center gap-3 px-3 py-2.5 mx-3 rounded-lg text-sm font-medium transition-all duration-200 ease-in-out";
   
   // Active vs Inactive styles
-  const activeLinkClass = "bg-blue-50 text-blue-600 shadow-sm ring-1 ring-blue-200/50";
+  const activeLinkClass = "bg-indigo-50 text-indigo-600 shadow-sm ring-1 ring-indigo-200/50";
   const inactiveLinkClass = "text-gray-500 hover:bg-gray-100 hover:text-gray-900";
 
   return (
@@ -51,7 +51,7 @@ function AdminSidebar() {
       <div className="h-20 shrink-0 flex items-center px-6 border-b border-gray-800 mb-2">
         <div className="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
           <ShieldCheck size={24} strokeWidth={2.5} />
-          <span className="text-lg font-bold tracking-tight text-blue-600">Admin<span className="text-gray-100">Panel</span></span>
+          <span className="text-lg font-bold tracking-tight text-indigo-600">Admin<span className="text-gray-100">Panel</span></span>
         </div>
       </div>
 

@@ -77,7 +77,7 @@ function AllReportDisplay({ report }) {
       <div
       
         className={`grid grid-cols-12 gap-4 cursor-pointer px-6 py-4 items-center border-b border-gray-100 hover:bg-gray-50 transition-all duration-200 relative group
-        ${!report.isRead ? "bg-blue-50/40 hover:bg-blue-50/60" : ""}`}
+        ${!report.isRead ? "bg-indigo-50/40 hover:bg-indigo-50/60" : ""}`}
       >
         {/* --- 1. IMAGE THUMBNAIL --- */}
         <div className="col-span-1">
@@ -182,7 +182,7 @@ function AllReportDisplay({ report }) {
                     markAsRead("issue", report._id); // Assuming ID is _id based on Mongoose
                     setShowMenu(false);
                   }}
-                  className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 flex items-center gap-3 transition-colors border-b border-gray-50"
+                  className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 flex items-center gap-3 transition-colors border-b border-gray-50"
                 >
                   <Check size={16} />
                   <span>Mark as Read</span>

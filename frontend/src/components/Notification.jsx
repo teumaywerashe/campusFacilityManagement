@@ -80,9 +80,9 @@ function Notification({ noti }) {
                   markAsRead('notification', noti._id);
                   setShowMenu(false);
                 }}
-                className="w-full text-left px-4 py-3 text-xs font-medium text-gray-700 hover:bg-blue-50 flex items-center gap-2 transition-colors"
+                className="w-full text-left px-4 py-3 text-xs font-medium text-gray-700 hover:bg-indigo-50 flex items-center gap-2 transition-colors"
               >
-                <CheckCircle size={14} className="text-blue-500" /> 
+                <CheckCircle size={14} className="text-indigo-500" /> 
                 Mark as read
               </button>
             )}

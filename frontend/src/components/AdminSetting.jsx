@@ -92,7 +92,7 @@ function AdminSetting() {
             </div>
             
             <div className="mt-6 flex justify-end">
-              <button className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all shadow-md hover:shadow-lg">
+              <button className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all shadow-md hover:shadow-lg">
                 <Save size={18} />
                 Save Changes
               </button>
@@ -122,7 +122,7 @@ function AdminSetting() {
                   <p className="text-sm text-gray-500">teumay@university.edu</p>
                 </div>
               </div>
-              <button className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all">
+              <button className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all">
                 <ChevronRight size={20} />
               </button>
             </div>
@@ -168,7 +168,7 @@ function AdminSetting() {
               {/* Custom Toggle Switch */}
               <button 
                 onClick={() => setNotifications(!notifications)}
-                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${notifications ? 'bg-blue-600' : 'bg-gray-300'}`}
+                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${notifications ? 'bg-indigo-600' : 'bg-gray-300'}`}
               >
                 <div className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ${notifications ? 'translate-x-5' : 'translate-x-0'}`}></div>
               </button>
@@ -185,7 +185,7 @@ function AdminSetting() {
               </div>
               <button 
                 onClick={() => setDarkMode(!darkMode)}
-                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${darkMode ? 'bg-blue-600' : 'bg-gray-300'}`}
+                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${darkMode ? 'bg-indigo-600' : 'bg-gray-300'}`}
               >
                 <div className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ${darkMode ? 'translate-x-5' : 'translate-x-0'}`}></div>
               </button>

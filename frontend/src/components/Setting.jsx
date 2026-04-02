@@ -76,7 +76,7 @@ function Setting() {
                 <button
                   type="button"
                   onClick={triggerFileInput}
-                  className="absolute bottom-0 right-0 bg-blue-600 hover:bg-blue-700 text-white p-2.5 rounded-full shadow-md transition-all duration-200 border-2 border-white group-hover:scale-110"
+                  className="absolute bottom-0 right-0 bg-indigo-600 hover:bg-indigo-700 text-white p-2.5 rounded-full shadow-md transition-all duration-200 border-2 border-white group-hover:scale-110"
                   title="Change Photo"
                 >
                   <Camera size={18} />

@@ -48,7 +48,7 @@ function ReportComent(rep) {
         <span>Posted: {updateTime(rep.createdAt)}</span>
         <button
           onClick={() => handleToggleComments(rep._id)}
-          className="flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600"
+          className="flex items-center gap-2 text-sm text-gray-500 hover:text-indigo-600"
         >
           <MessageSquare size={14} />
           <span>{rep.comments?.length || 0}</span>
@@ -69,7 +69,7 @@ function ReportComent(rep) {
                       className={`flex ${isOwn ? "justify-end" : "justify-start"}`}
                     >
                       <div
-                        className={`p-3 rounded-lg text-sm max-w-[86%] ${isOwn ? "bg-blue-50 text-gray-800 border border-blue-100" : "bg-white border border-gray-200 text-gray-700"}`}
+                        className={`p-3 rounded-lg text-sm max-w-[86%] ${isOwn ? "bg-indigo-50 text-gray-800 border border-indigo-100" : "bg-white border border-gray-200 text-gray-700"}`}
                       >
                         <div className="flex justify-between mb-1">
                           <span className="text-[10px] text-gray-400">
@@ -90,7 +90,7 @@ function ReportComent(rep) {
               <input
                 type="text"
                 placeholder="Write a comment..."
-                className="w-full pl-4 pr-12 py-2 bg-white border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                className="w-full pl-4 pr-12 py-2 bg-white border border-gray-300 rounded-full text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 onKeyPress={(e) =>
@@ -99,7 +99,7 @@ function ReportComent(rep) {
               />
               <button
                 onClick={() => handleSendComment(rep._id)}
-                className="absolute right-2 top-1.5 p-1 text-blue-500 hover:bg-blue-50 rounded-full transition-colors"
+                className="absolute right-2 top-1.5 p-1 text-indigo-500 hover:bg-indigo-50 rounded-full transition-colors"
               >
                 <Send size={18} />
               </button>
