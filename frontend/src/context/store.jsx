@@ -31,7 +31,7 @@ export const StoreContextProvider = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("role");
-    localStorage;
+    localStorage.removeItem("userName");
     setReport([]);
     setNotifications([]);
     setId(null);
@@ -99,7 +99,7 @@ export const StoreContextProvider = ({ children }) => {
         headers: { token },
       });
       if (response.data.success) {
-        setUser(response.data.user.name);
+        setUser(response.data.user);
       }
     } catch (error) {
       console.log(error);

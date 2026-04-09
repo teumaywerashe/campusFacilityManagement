@@ -1,5 +1,6 @@
 import React from 'react'
 import AdminHome from '../../components/AdminHome'
+import Navbar from '../../components/Navbar'
 import { style } from '../style'
 
 function Admin() {
