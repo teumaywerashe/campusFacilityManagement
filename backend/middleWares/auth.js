@@ -10,10 +10,11 @@ export const authMiddleWare = async(req, res, next) => {
         const payload = jwt.verify(token, process.env.JWT_SECRET);
 
         const user = await User.findById(payload.id).select('-password')
-        req.userId = user
+        req.userId = user._id;
 
         next();
     } catch (error) {
         console.log(error);
+        res.status(401).json({ msg: "Unauthorized" });
     }
 };

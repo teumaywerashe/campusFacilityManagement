@@ -18,6 +18,10 @@ export const createIssue = async (req, res) => {
         .json({ msg: "please write the content", success: false });
     }
 
+    if (!req.file) {
+      return res.status(400).json({ success: false, msg: "image is required" });
+    }
+
     const issue = await Issue.create({
       image: req.file.filename,
       userId,
