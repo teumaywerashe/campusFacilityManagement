@@ -7,13 +7,36 @@ import {
   LogIn as LogInIcon,
   Menu,
   XIcon,
+  Sun,
+  Moon,
+  Monitor,
 } from "lucide-react";
 import { StoreContext } from "../context/store";
+import type { ThemeMode } from "../context/store";
+
+const themeOrder: ThemeMode[] = ["light", "dark", "system"];
+
+const themeIcon: Record<ThemeMode, React.ReactNode> = {
+  light:  <Sun  size={18} />,
+  dark:   <Moon size={18} />,
+  system: <Monitor size={18} />,
+};
+
+const themeLabel: Record<ThemeMode, string> = {
+  light:  "Light",
+  dark:   "Dark",
+  system: "System",
+};
 
 const Navbar: React.FC = () => {
-  const { token, showLogin, setShowLogin, role, showSidebar, setShowSidebar } =
+  const { token, showLogin, setShowLogin, role, showSidebar, setShowSidebar, theme, setTheme } =
     useContext(StoreContext);
   const navigate = useNavigate();
+
+  const cycleTheme = () => {
+    const next = themeOrder[(themeOrder.indexOf(theme) + 1) % themeOrder.length];
+    setTheme(next);
+  };
 
   return (
     <nav className="sticky top-0  z-100 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
@@ -49,6 +72,16 @@ const Navbar: React.FC = () => {
 
           {/* --- RIGHT SIDE: ACTIONS --- */}
           <div className="flex items-center gap-4">
+            {/* Theme Toggle — cycles: Light → Dark → System */}
+            <button
+              onClick={cycleTheme}
+              title={`Theme: ${themeLabel[theme]} (click to change)`}
+              aria-label="Toggle theme"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-colors text-xs font-medium"
+            >
+              {themeIcon[theme]}
+              <span className="hidden sm:inline">{themeLabel[theme]}</span>
+            </button>
             {token ? (
               <>
                 {role === "user" && (
@@ -80,7 +113,7 @@ const Navbar: React.FC = () => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setShowLogin(!showLogin)}
-                  className="flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-slate-300 hover:shadow-slate-400 transform hover:-translate-y-0.5"
+                  className="flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-slate-900/30 transform hover:-translate-y-0.5"
                 >
                   <span>Get Started</span>
                   <LogInIcon size={16} />

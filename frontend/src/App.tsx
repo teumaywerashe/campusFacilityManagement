@@ -4,24 +4,14 @@ import Navbar from "./components/Navbar";
 import UserHome from "./components//UserHome";
 import Home from "./pages/Home";
 import { Toaster } from "sonner";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { StoreContext } from "./context/store";
 import AdminHome from "./components/AdminHome";
 import ResetPassword from "./components/ResetPassword";
 
 function App() {
   
-  const { role, theme, token } = useContext(StoreContext);
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.remove("light");
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.classList.add("light");
-    }
-  }, [theme]);
+  const { role, token } = useContext(StoreContext);
 
   return (
     <>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createContext } from "react";
 import React from "react";
 import { toast } from "sonner";
@@ -39,6 +39,8 @@ export interface UserProfile {
   profileImage?: string;
 }
 
+export type ThemeMode = 'light' | 'dark' | 'system';
+
 interface StoreContextValue {
   url: string;
   token: string | null;
@@ -66,8 +68,11 @@ interface StoreContextValue {
   setRole: React.Dispatch<React.SetStateAction<string | null>>;
   showSidebar: boolean;
   setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-  theme: 'light' | 'dark';
-  setTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>>;
+  /** The user's chosen preference: light | dark | system */
+  theme: ThemeMode;
+  setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
+  /** The resolved (actual) theme being applied */
+  resolvedTheme: 'light' | 'dark';
 }
 
 export const StoreContext = createContext<StoreContextValue>({} as StoreContextValue);
@@ -75,7 +80,40 @@ export const StoreContext = createContext<StoreContextValue>({} as StoreContextV
 export const StoreContextProvider = ({ children }: { children: React.ReactNode }) => {
   const url = import.meta.env.VITE_API_URL;
 
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<ThemeMode>(
+    () => (localStorage.getItem('theme') as ThemeMode) || 'system'
+  );
+
+  // Resolve system preference
+  const getSystemTheme = (): 'light' | 'dark' =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>(
+    () => theme === 'system' ? getSystemTheme() : theme
+  );
+
+  useEffect(() => {
+    const resolved = theme === 'system' ? getSystemTheme() : theme;
+    setResolvedTheme(resolved);
+    document.documentElement.classList.toggle('dark', resolved === 'dark');
+    document.documentElement.classList.toggle('light', resolved === 'light');
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  // Listen for OS-level preference changes when in system mode
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = () => {
+      if (theme === 'system') {
+        const resolved = getSystemTheme();
+        setResolvedTheme(resolved);
+        document.documentElement.classList.toggle('dark', resolved === 'dark');
+        document.documentElement.classList.toggle('light', resolved === 'light');
+      }
+    };
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, [theme]);
 
   const [showLogin, setShowLogin] = useState<boolean>(false);
 
@@ -254,6 +292,7 @@ export const StoreContextProvider = ({ children }: { children: React.ReactNode }
         setShowSidebar,
         theme,
         setTheme,
+        resolvedTheme,
       }}
     >
       {children}{" "}

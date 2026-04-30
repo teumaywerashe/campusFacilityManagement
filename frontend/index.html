@@ -6,6 +6,16 @@
     <link rel="icon" type="image/svg+xml" href="/image.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>campus facility management</title>
+    <!-- Prevent flash of wrong theme on load -->
+    <script>
+      (function () {
+        var saved = localStorage.getItem('theme');
+        var resolved = saved === 'dark' ? 'dark'
+          : saved === 'light' ? 'light'
+          : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.classList.add(resolved);
+      })();
+    </script>
 </head>
 
 <body>

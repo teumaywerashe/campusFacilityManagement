@@ -1,39 +1,455 @@
 @import "tailwindcss";
 
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — Light (default)
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* Backgrounds */
+  --bg-primary:    #f8fafc;
+  --bg-secondary:  #f1f5f9;
+  --bg-card:       #ffffff;
+  --bg-sidebar:    #111827;
+  --bg-navbar:     rgba(255, 255, 255, 0.85);
+  --bg-input:      #f8fafc;
+  --bg-input-focus:#ffffff;
+  --bg-hover:      #f1f5f9;
+  --bg-badge:      #e0e7ff;
+  --bg-overlay:    rgba(0, 0, 0, 0.5);
 
-@layer utilities {
-    /* Hide scrollbar for Chrome, Safari and Opera */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    /* Hide scrollbar for IE, Edge and Firefox */
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        /* IE and Edge */
-        scrollbar-width: none;
-        /* Firefox */
-    }
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --text-inverse:   #ffffff;
+  --text-link:      #4f46e5;
+
+  /* Borders */
+  --border-color:   #e2e8f0;
+  --border-focus:   #6366f1;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg:  0 10px 30px rgba(0,0,0,0.10);
+
+  /* Accent */
+  --accent:           #4f46e5;
+  --accent-hover:     #3730a3;
+  --accent-soft:      #e0e7ff;
+  --accent-text:      #4f46e5;
+
+  /* Status */
+  --status-pending-bg:    #fff7ed;
+  --status-pending-text:  #c2410c;
+  --status-progress-bg:   #eff6ff;
+  --status-progress-text: #1d4ed8;
+  --status-resolved-bg:   #f0fdf4;
+  --status-resolved-text: #15803d;
+
+  /* Sidebar active */
+  --sidebar-active-bg:   #2563eb;
+  --sidebar-active-text: #ffffff;
+  --sidebar-text:        #9ca3af;
+  --sidebar-hover-bg:    #1f2937;
+  --sidebar-hover-text:  #ffffff;
+  --sidebar-border:      #1f2937;
+  --sidebar-footer-bg:   rgba(17,24,39,0.5);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — Dark
+   ═══════════════════════════════════════════════════════════════ */
+html.dark {
+  /* Backgrounds */
+  --bg-primary:    #0f172a;
+  --bg-secondary:  #1e293b;
+  --bg-card:       #1e293b;
+  --bg-sidebar:    #0f172a;
+  --bg-navbar:     rgba(15, 23, 42, 0.92);
+  --bg-input:      #1e293b;
+  --bg-input-focus:#263348;
+  --bg-hover:      #263348;
+  --bg-badge:      #312e81;
+  --bg-overlay:    rgba(0, 0, 0, 0.75);
+
+  /* Text */
+  --text-primary:   #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:     #64748b;
+  --text-inverse:   #0f172a;
+  --text-link:      #818cf8;
+
+  /* Borders */
+  --border-color:  #334155;
+  --border-focus:  #818cf8;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg:  0 10px 30px rgba(0,0,0,0.5);
+
+  /* Accent */
+  --accent:           #6366f1;
+  --accent-hover:     #4f46e5;
+  --accent-soft:      #1e1b4b;
+  --accent-text:      #a5b4fc;
+
+  /* Status */
+  --status-pending-bg:    #431407;
+  --status-pending-text:  #fb923c;
+  --status-progress-bg:   #172554;
+  --status-progress-text: #60a5fa;
+  --status-resolved-bg:   #052e16;
+  --status-resolved-text: #4ade80;
+
+  /* Sidebar (stays dark in both modes — only subtle shift) */
+  --sidebar-active-bg:   #2563eb;
+  --sidebar-active-text: #ffffff;
+  --sidebar-text:        #64748b;
+  --sidebar-hover-bg:    #1e293b;
+  --sidebar-hover-text:  #f1f5f9;
+  --sidebar-border:      #1e293b;
+  --sidebar-footer-bg:   rgba(15,23,42,0.6);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SMOOTH TRANSITIONS — applied globally
+   ═══════════════════════════════════════════════════════════════ */
+*, *::before, *::after {
+  transition:
+    background-color 0.25s ease,
+    color            0.25s ease,
+    border-color     0.25s ease,
+    box-shadow       0.25s ease,
+    fill             0.25s ease;
+}
+
+/* Exclude transitions on elements where they'd feel wrong */
+[data-no-transition], input[type="range"], input[type="checkbox"] {
+  transition: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════ */
 html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar { display: none; }
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+button { cursor: pointer; }
+
+/* ═══════════════════════════════════════════════════════════════
+   NAVBAR
+   ═══════════════════════════════════════════════════════════════ */
+nav.sticky {
+  background-color: var(--bg-navbar) !important;
+  border-color: var(--border-color) !important;
+}
+
+html.dark nav.sticky h1 {
+  color: var(--text-primary) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TAILWIND OVERRIDES — bg-white / bg-gray-*
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .bg-white          { background-color: var(--bg-card)      !important; }
+html.dark .bg-gray-50        { background-color: var(--bg-secondary)  !important; }
+html.dark .bg-gray-50\/50    { background-color: var(--bg-secondary)  !important; }
+html.dark .bg-gray-100       { background-color: var(--bg-hover)      !important; }
+html.dark .bg-slate-100      { background-color: var(--bg-hover)      !important; }
+html.dark .bg-slate-50       { background-color: var(--bg-secondary)  !important; }
+html.dark .bg-\[\#F3F4F6\]  { background-color: var(--bg-primary)    !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TAILWIND OVERRIDES — text colors
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .text-gray-900,
+html.dark .text-gray-800,
+html.dark .text-slate-900,
+html.dark .text-slate-800  { color: var(--text-primary)   !important; }
+
+html.dark .text-gray-700,
+html.dark .text-gray-600,
+html.dark .text-slate-700,
+html.dark .text-slate-600  { color: var(--text-secondary) !important; }
+
+html.dark .text-gray-500,
+html.dark .text-gray-400,
+html.dark .text-slate-500,
+html.dark .text-slate-400  { color: var(--text-muted)     !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TAILWIND OVERRIDES — borders
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-gray-300,
+html.dark .border-slate-100,
+html.dark .border-slate-200 { border-color: var(--border-color) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TAILWIND OVERRIDES — shadows
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .shadow-sm  { box-shadow: var(--shadow-sm) !important; }
+html.dark .shadow-md  { box-shadow: var(--shadow-md) !important; }
+html.dark .shadow-lg  { box-shadow: var(--shadow-lg) !important; }
+html.dark .shadow-xl  { box-shadow: var(--shadow-lg) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   CARDS & PANELS — only target actual card containers, not buttons
+   ═══════════════════════════════════════════════════════════════ */
+html.dark div.rounded-xl,
+html.dark div.rounded-2xl,
+html.dark aside.rounded-xl,
+html.dark section.rounded-xl,
+html.dark article.rounded-xl {
+  background-color: var(--bg-card);
+  border-color: var(--border-color);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS — preserve all colored variants in dark mode
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Indigo / primary CTA buttons */
+html.dark button.bg-indigo-600,
+html.dark a.bg-indigo-600 {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+html.dark button.bg-indigo-600:hover,
+html.dark a.bg-indigo-600:hover,
+html.dark button.hover\:bg-indigo-700:hover,
+html.dark a.hover\:bg-indigo-700:hover {
+  background-color: #4338ca !important;
+}
+
+/* Blue buttons */
+html.dark button.bg-blue-600,
+html.dark a.bg-blue-600 {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+html.dark button.bg-blue-600:hover,
+html.dark button.hover\:bg-blue-700:hover {
+  background-color: #1d4ed8 !important;
+}
+
+/* Slate / dark buttons (e.g. "Get Started") */
+html.dark button.bg-slate-900,
+html.dark a.bg-slate-900 {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  border: 1px solid #334155;
+}
+html.dark button.bg-slate-900:hover,
+html.dark button.hover\:bg-black:hover {
+  background-color: #0f172a !important;
+}
+
+/* Gray-900 buttons (Save Changes, etc.) */
+html.dark button.bg-gray-900 {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+html.dark button.bg-gray-900:hover,
+html.dark button.hover\:bg-gray-800:hover {
+  background-color: #0f172a !important;
+}
+
+/* Red / danger buttons */
+html.dark button.bg-red-50,
+html.dark a.bg-red-50 {
+  background-color: rgba(127, 29, 29, 0.3) !important;
+  color: #fca5a5 !important;
+}
+html.dark button.bg-red-50:hover,
+html.dark button.hover\:bg-red-100:hover {
+  background-color: rgba(127, 29, 29, 0.5) !important;
+}
+
+/* Ghost / outline buttons */
+html.dark button.bg-white.border {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+html.dark button.bg-white.border:hover {
+  background-color: var(--bg-hover) !important;
+}
+
+/* Icon-only ghost buttons (refresh, filter, etc.) */
+html.dark button.bg-white {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Ensure white text stays white on colored buttons */
+html.dark button.bg-indigo-600 *,
+html.dark button.bg-blue-600 *,
+html.dark button.bg-gray-900 *,
+html.dark button.bg-slate-900 * {
+  color: #ffffff !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INPUTS, SELECTS, TEXTAREAS
+   ═══════════════════════════════════════════════════════════════ */
+html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+html.dark select,
+html.dark textarea {
+  background-color: var(--bg-input)    !important;
+  color:            var(--text-primary) !important;
+  border-color:     var(--border-color) !important;
+}
+
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  background-color: var(--bg-input-focus) !important;
+  border-color:     var(--border-focus)   !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DIVIDERS
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .divide-y > * + * {
+  border-color: var(--border-color) !important;
+}
+
+html.dark hr,
+html.dark .border-b,
+html.dark .border-t {
+  border-color: var(--border-color) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOVER STATES
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .hover\:bg-gray-50:hover  { background-color: var(--bg-hover) !important; }
+html.dark .hover\:bg-gray-100:hover { background-color: var(--bg-hover) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS BADGES — adaptive
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .bg-orange-100 { background-color: var(--status-pending-bg)   !important; }
+html.dark .text-orange-700,
+html.dark .text-orange-600 { color: var(--status-pending-text)          !important; }
+
+html.dark .bg-yellow-100 { background-color: var(--status-pending-bg)   !important; }
+html.dark .text-yellow-800,
+html.dark .text-yellow-700 { color: var(--status-pending-text)          !important; }
+
+html.dark .bg-blue-50    { background-color: var(--status-progress-bg)  !important; }
+html.dark .text-blue-700,
+html.dark .text-blue-600 { color: var(--status-progress-text)           !important; }
+
+html.dark .bg-green-100,
+html.dark .bg-green-50   { background-color: var(--status-resolved-bg)  !important; }
+html.dark .text-green-700,
+html.dark .text-green-600 { color: var(--status-resolved-text)          !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   LANDING PAGE (Logo.tsx)
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .dark-page {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+html.dark .selection\:bg-indigo-100 ::selection {
+  background-color: var(--accent-soft);
+}
+
+/* Hero section */
+html.dark section.w-full {
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+/* About section card mock-up */
+html.dark .bg-slate-50\/50 {
+  background-color: var(--bg-secondary) !important;
+}
+
+html.dark .bg-slate-100 {
+  background-color: var(--bg-hover) !important;
+}
+
+/* Stats bar */
+html.dark .border-slate-100 {
+  border-color: var(--border-color) !important;
+}
+
+/* Feature cards */
+html.dark .border-slate-100.shadow-sm {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LOGIN MODAL
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .bg-gray-50.fixed {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NOTIFICATION ITEMS
+   ═══════════════════════════════════════════════════════════════ */
+html.dark .bg-blue-50\/60 {
+  background-color: rgba(30, 58, 138, 0.25) !important;
+}
+
+/* Dropdown menus */
+html.dark .shadow-xl.border-gray-100 {
+  background-color: var(--bg-card)    !important;
+  border-color:     var(--border-color) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SETTINGS PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Settings header banner (intentionally very dark) */
+html.dark .bg-gray-900 {
+  background-color: #020617 !important;
+}
+
+/* Keep sidebar dark in both modes */
+html.dark aside.fixed,
+html.dark .bg-gray-900\/50 {
+  background-color: var(--bg-sidebar) !important;
+}
+
+/* text-white should stay white on dark backgrounds — only override on light surfaces */
+html.dark .bg-white .text-white,
+html.dark .bg-gray-50 .text-white {
+  color: var(--text-primary) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLLBAR UTILITIES
+   ═══════════════════════════════════════════════════════════════ */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar {
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
-}
-
-html::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, Opera */
-}
-
-button {
-    cursor: pointer
-}
-
-.dark {
-    background: #000;
+  }
 }

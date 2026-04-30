@@ -14,9 +14,8 @@ import { admin } from "../images/image";
 import { StoreContext } from '../context/store';
 
 const AdminSetting: React.FC = () => {
-  const { userName, role } = useContext(StoreContext);
+  const { userName, role, theme, setTheme, resolvedTheme } = useContext(StoreContext);
   const [notifications, setNotifications] = useState<boolean>(true);
-  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   return (
     <div className="min-h-screen w-full ml-0 sm:ml-64 w-full bg-gray-50 p-6 md:p-10 font-sans text-gray-800">
@@ -174,10 +173,10 @@ const AdminSetting: React.FC = () => {
                 </div>
               </div>
               <button
-                onClick={() => setDarkMode(!darkMode)}
-                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${darkMode ? 'bg-blue-600' : 'bg-gray-300'}`}
+                onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                className={`w-11 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${resolvedTheme === 'dark' ? 'bg-blue-600' : 'bg-gray-300'}`}
               >
-                <div className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ${darkMode ? 'translate-x-5' : 'translate-x-0'}`} />
+                <div className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-300 ${resolvedTheme === 'dark' ? 'translate-x-5' : 'translate-x-0'}`} />
               </button>
             </div>
           </div>
