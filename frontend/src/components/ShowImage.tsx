@@ -16,7 +16,7 @@ function ShowImage({ showImage, report, setShowImage }: Props) {
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
           <div className="bg-white p-4 rounded shadow-lg">
             <img
-              src={`${url}/uploads/${report.image}`}
+              src={report.image}
               alt="Facility Map"
               className="w-[80vw] h-[80vh]"
             />

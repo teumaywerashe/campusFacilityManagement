@@ -162,13 +162,13 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }: Props) {
         <div
           className="relative w-full h-40 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 cursor-zoom-in group-hover:border-blue-200 transition-colors"
           onClick={() =>
-            rep.image && setSelectedImage(`${url}/uploads/${rep.image}`)
+            rep.image && setSelectedImage(rep.image)
           }
         >
           {rep.image ? (
             <>
               <img
-                src={`${url}/uploads/${rep.image}`}
+                src={rep.image}
                 alt="Evidence"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
@@ -313,13 +313,13 @@ function AdminDashBoardDisplay({ rep, i, config, setSelectedImage }: Props) {
                     className="relative aspect-video md:aspect-square w-full bg-gray-50 rounded-xl overflow-hidden border-2 border-dashed border-gray-200 cursor-zoom-in group hover:border-blue-400 transition-all"
                     onClick={() =>
                       rep.image &&
-                      setSelectedImage(`${url}/uploads/${rep.image}`)
+                      setSelectedImage(rep.image)
                     }
                   >
                     {rep.image ? (
                       <>
                         <img
-                          src={`${url}/uploads/${rep.image}`}
+                          src={rep.image}
                           alt="Evidence"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />

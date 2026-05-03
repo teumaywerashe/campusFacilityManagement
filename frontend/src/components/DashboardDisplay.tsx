@@ -55,13 +55,13 @@ function DashboardDisplay({ rep, id, setSelectedImage }: Props) {
       {/* Card Image */}
       <div
         className="relative h-56 w-full bg-gray-200 overflow-hidden cursor-pointer"
-        onClick={() => setSelectedImage(`${url}/uploads/${rep.image}`)}
+        onClick={() => setSelectedImage(rep.image)}
       >
         {rep.image ? (
           <>
             <img
               className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
-              src={`${url}/uploads/${rep.image}`}
+              src={rep.image}
               alt="Report"
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">

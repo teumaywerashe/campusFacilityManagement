@@ -2,12 +2,7 @@ import { Response } from "express";
 import { AuthRequest } from "../middleWares/auth.js";
 import Issue from "../models/Issue.js";
 import Notification from "../models/Notification.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import cloudinary from "../config/cloudinary.js";
 
 export const createIssue = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -22,7 +17,10 @@ export const createIssue = async (req: AuthRequest, res: Response): Promise<void
       return;
     }
 
-    const issue = await Issue.create({ image: req.file.filename, userId, content });
+    // Cloudinary returns the full URL in req.file.path and public_id in req.file.filename
+    const imageUrl = req.file.path;
+
+    const issue = await Issue.create({ image: imageUrl, userId, content });
 
     await Notification.create({
       receiverId: userId,
@@ -89,11 +87,18 @@ export const deleteIssue = async (req: AuthRequest, res: Response): Promise<void
       return;
     }
 
-    const filePath = path.join(__dirname, "..", "uploads", issue.image);
-    fs.unlink(filePath, (err) => {
-      if (err) console.log("File not found or could not be deleted:", err);
-      else console.log("File deleted successfully");
-    });
+    // Delete image from Cloudinary using the public_id extracted from the URL
+    if (issue.image) {
+      try {
+        // Extract public_id from Cloudinary URL (e.g. "campus-facility-reports/abc123")
+        const urlParts = issue.image.split("/");
+        const folderAndFile = urlParts.slice(-2).join("/");
+        const publicId = folderAndFile.replace(/\.[^/.]+$/, ""); // strip extension
+        await cloudinary.uploader.destroy(publicId);
+      } catch (err) {
+        console.log("Could not delete image from Cloudinary:", err);
+      }
+    }
 
     res.status(200).json({ success: true, msg: "removed", issue });
   } catch (error) {

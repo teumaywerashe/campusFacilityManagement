@@ -58,13 +58,13 @@ const MyReport: React.FC = () => {
                       <div
                         className="relative h-16 w-24 rounded-lg overflow-hidden border border-gray-200 cursor-pointer bg-gray-100"
                         onClick={() =>
-                          setSelectedImage(`${url}/uploads/${item.image}`)
+                          setSelectedImage(item.image)
                         }
                       >
                         {item.image ? (
                           <>
                             <img
-                              src={`${url}/uploads/${item.image}`}
+                              src={item.image}
                               alt="evidence"
                               className="h-full w-full object-cover group-hover:scale-110 transition-transform"
                             />

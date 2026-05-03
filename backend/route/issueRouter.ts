@@ -1,13 +1,18 @@
 import express from "express";
 import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../config/cloudinary.js";
 import { createIssue, deleteIssue, getAllIssues, getUserIssues, updateIssue } from "../controller/issueController.js";
 import { authMiddleWare } from "../middleWares/auth.js";
 
 export const issueRouter = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, "uploads/"),
-  filename: (_req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "campus-facility-reports",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+  } as object,
 });
 
 const upload = multer({ storage });
