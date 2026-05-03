@@ -1,185 +1,174 @@
 # Campus Facility Management
 
-A full-stack Campus Facility Management system where students and staff can log in to report facility issues, while administrators manage, view, and respond to these reports through a secure role-based system.
+A full-stack web application where students and staff can report campus facility issues, and administrators can manage, track, and respond to those reports through a role-based dashboard.
 
-### Live Demo
-Live Site: [Campus Facility Management](https://campusfacilitymanagement-1.onrender.com/)
+**Live Site:** [campusfacilitymanagement-1.onrender.com](https://campusfacilitymanagement-1.onrender.com)  
+**Backend API:** [campusfacilitymanagement.onrender.com](https://campusfacilitymanagement.onrender.com)  
+**API Docs:** [/api-docs](https://campusfacilitymanagement.onrender.com/api-docs)
 
-Backend API: [Backend API](https://campusfacilitymanagement.onrender.com)
+---
 
-##  Tech Stack
+## Tech Stack
 
-### Frontend
+| Layer | Technology |
+|---|---|
+| Frontend | React, TypeScript, Tailwind CSS, Vite |
+| Backend | Node.js, Express, TypeScript |
+| Database | MongoDB Atlas (Mongoose) |
+| Auth | JWT (JSON Web Tokens) |
+| Image Storage | Cloudinary |
+| Email | Nodemailer |
+| Deployment | Render.com |
 
-React.js
+---
 
-pure CSS
+## Features
 
-### Backend
+### Users (Students / Staff)
+- Register and log in securely
+- Submit facility issue reports with an image and description
+- Track the status of submitted reports (Pending / In Progress / Resolved)
+- Receive in-app notifications when report status is updated
+- Comment on their own reports
+- Reset password via email link
 
-Node.js
+### Admins
+- View all submitted reports in a dashboard
+- Update report status and notify the reporter automatically
+- Comment on reports
+- Delete reports (image is also removed from Cloudinary)
+- View and manage notifications
 
-Express.js
-
-mongodb atlas 
-
-### Deployment
-
-Render.com
-
-## Main Features
-
-###  Users (Students/Staff)
-
-Secure login and registration
-
-Report facility issues (e.g., broken equipment, maintenance requests)
-
-Track the status of submitted reports
-
-###  Admins
-
-Secure login using email and password
-
-View all submitted reports
-
-Respond to reports and update status
-
-Access protected admin routes
-
-### Super Admin (if applicable)
-
-Full system control
-
-Create, update, or remove admin accounts
-
-Manage privileges for admins
-
-Oversee all facility reports
-
-## Security
-
-Role-based access control (RBAC)
-
-Protected routes for admins and super admins
-
-Public access limited to report submission (if allowed)
+---
 
 ## Project Structure
 
-campus-facility-management/
+```
+campusFacilityManagement/
+├── backend/
+│   ├── config/
+│   │   ├── db.ts               # MongoDB connection
+│   │   └── cloudinary.ts       # Cloudinary config
+│   ├── controller/
+│   │   ├── userController.ts
+│   │   ├── issueController.ts
+│   │   ├── commentController.ts
+│   │   └── notificationController.ts
+│   ├── middleWares/
+│   │   └── auth.ts             # JWT auth middleware
+│   ├── models/
+│   │   ├── User.ts
+│   │   ├── Issue.ts
+│   │   ├── coments.ts
+│   │   └── Notification.ts
+│   ├── route/
+│   │   ├── userRoute.ts
+│   │   ├── issueRouter.ts
+│   │   ├── commentRouter.ts
+│   │   └── notificationRouter.ts
+│   ├── server.ts
+│   └── swagger.ts
+│
+└── frontend/
+    └── src/
+        ├── components/         # All UI components
+        ├── context/
+        │   └── store.tsx       # Global state (React Context)
+        ├── pages/              # Admin, User, Home pages
+        └── main.tsx
+```
 
-├── backend
-
-│   ├── routes
-
-│   ├── controllers
-
-│   ├── middleware
-
-│   ├── models
-
-│   ├── config
-
-│   └── server.js
-
-├── frontend
-
-│   ├── src
-
-│   │   ├── components
-
-│   │   ├── pages
-
-│   │   ├── store
-
-│   │   └── main.jsx
-
-└── README.md
-
+---
 
 ## Environment Variables
 
-The backend uses environment variables for configuration.
+### Backend — `backend/.env`
 
-.env
-
-Example:
-
+```env
 PORT=3000
+MONGODB_URL=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
 
-MONGODB_URL='your_database_url_here'
+# Cloudinary (image storage)
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 
-JWT_SECRET='your_secret_key'
+# Email (password reset)
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password
 
-TOKEN_EXPIRE='1d'
+FRONTEND_URL=http://localhost:5173
+```
 
+### Frontend — `frontend/.env`
 
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+---
 
 ## Run Locally
 
 ### Backend
 
+```bash
 cd backend
-
 npm install
-
 npm run dev
-
+```
 
 ### Frontend
 
+```bash
 cd frontend
-
 npm install
-
 npm run dev
+```
 
+---
 
 ## API Overview
 
-Method	Endpoint	Description
+### Auth — `/user`
 
-GET	/issue	Get all reports (admin)
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/user/register` | Register a new user | No |
+| POST | `/user/login` | Login | No |
+| GET | `/user/get/:id` | Get user profile | Yes |
+| POST | `/user/forgot-password` | Send password reset email | No |
+| POST | `/user/reset-password/:token` | Reset password | No |
 
-GET	/issue/:id	Get a single report (admin)
+### Issues — `/issue`
 
-POST	/issue/add	Submit a new report (user)
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/issue/report` | Submit a new report (with image) | Yes |
+| GET | `/issue/get` | Get all reports (admin) | Yes |
+| GET | `/issue/get/:id` | Get reports by user | Yes |
+| PATCH | `/issue/update/:id` | Update report status | Yes |
+| DELETE | `/issue/remove/:id` | Delete a report | Yes |
 
-PUT	/reports/respond/:id	Respond to a report (admin)
+### Comments — `/comment`
 
-POST	/user/login	User/Admin login
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/comment` | Add a comment to a report | Yes |
 
-POST	/user/register	Admin registration (superadmin)
+### Notifications — `/notification`
 
-PUT	/user/update/:id	Update profile (admin/superadmin)
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| GET | `/notification/get` | Get all notifications | No |
+| GET | `/notification/get/:id` | Get notifications for a user | No |
+| POST | `/notification/create` | Create a notification | No |
+| PATCH | `/notification/update/:id` | Mark notification as read | No |
+| DELETE | `/notification/delete/:id` | Delete a notification | No |
 
-DELETE	/user/delete/:id	Remove admin (superadmin)
+---
 
-## What This Project Demonstrates
+## Author
 
-Full-stack application architecture
-
-RESTful API design
-
-Role-based authentication & authorization
-
-Secure environment variable handling
-
-Production deployment with Render
-
-##  Future Improvements
-
-notifications for report updates on the app
-
-Dashboard analytics for admins
-
-File attachment support for reports
-
-Advanced filtering and reporting system
-
-##  Author
-
-Teumay Werashe
-
- If you like this project, feel free to give it a star!
+**Teumay Werashe**
