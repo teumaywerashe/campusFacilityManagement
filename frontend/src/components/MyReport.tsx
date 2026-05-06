@@ -16,7 +16,7 @@ const getStatusStyle = (status: string | undefined): string => {
 };
 
 const MyReport: React.FC = () => {
-  const { url, getReport, deleteIssue, updateTime, report } =
+  const { url, getReport, deleteIssue, updateTime, getImageUrl, report } =
     useContext(StoreContext);
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -58,13 +58,13 @@ const MyReport: React.FC = () => {
                       <div
                         className="relative h-16 w-24 rounded-lg overflow-hidden border border-gray-200 cursor-pointer bg-gray-100"
                         onClick={() =>
-                          setSelectedImage(item.image)
+                          setSelectedImage(getImageUrl(item.image))
                         }
                       >
                         {item.image ? (
                           <>
                             <img
-                              src={item.image}
+                              src={getImageUrl(item.image)}
                               alt="evidence"
                               className="h-full w-full object-cover group-hover:scale-110 transition-transform"
                             />

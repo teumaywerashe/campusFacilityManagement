@@ -26,7 +26,7 @@ export interface Issue {
 
 export interface NotificationItem {
   _id: string;
-  message: string;
+  content: string;
   isRead: boolean;
   createdAt: string;
 }
@@ -48,6 +48,7 @@ interface StoreContextValue {
   showLogin: boolean;
   setShowLogin: React.Dispatch<React.SetStateAction<boolean>>;
   updateTime: (time: string) => string;
+  getImageUrl: (image?: string) => string;
   id: string | null;
   notifications: NotificationItem[];
   getNotification: () => Promise<void>;
@@ -115,7 +116,9 @@ export const StoreContextProvider = ({ children }: { children: React.ReactNode }
     return () => mq.removeEventListener('change', handler);
   }, [theme]);
 
-  const [showLogin, setShowLogin] = useState<boolean>(false);
+  const getImageUrl = (image?: string): string => {
+    return image || '';
+  };
 
   const [report, setReport] = useState<Issue[]>([]);
   const [allReports, setAllReports] = useState<Issue[]>([]);
@@ -128,6 +131,7 @@ export const StoreContextProvider = ({ children }: { children: React.ReactNode }
   const [role, setRole] = useState<string | null>(localStorage.getItem('role'));
 
   const [user, setUser] = useState<Partial<UserProfile>>({});
+  const [showLogin,setShowLogin]=useState(false);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -270,6 +274,7 @@ export const StoreContextProvider = ({ children }: { children: React.ReactNode }
         showLogin,
         setShowLogin,
         updateTime,
+        getImageUrl,
         id,
         notifications,
         getNotification,

@@ -14,7 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const AllReport: React.FC = () => {
-  const { getAllReports, deleteIssue, markAsRead, allReports, url, updateTime, token } =
+  const { getAllReports, deleteIssue, markAsRead, allReports, url, updateTime, token, getImageUrl } =
     useContext(StoreContext);
 
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ const AllReport: React.FC = () => {
                   <div className="w-12 h-12 rounded-lg bg-gray-100 border border-gray-200 overflow-hidden relative">
                     {report.image ? (
                       <img
-                        src={report.image}
+                        src={getImageUrl(report.image)}
                         alt="Evidence"
                         className="w-full h-full object-cover"
                       />

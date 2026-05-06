@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 dotenv.config();
 
 import { userRouter } from "./route/userRoute.js";
@@ -10,6 +12,9 @@ import { connectDB } from "./config/db.js";
 import { commentRounter } from "./route/commentRouter.js";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -25,6 +30,9 @@ app.use(
     allowedHeaders: ["Content-Type", "token", "Authorization"],
   })
 );
+
+// Serve locally uploaded files (legacy — new uploads go to Cloudinary)
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

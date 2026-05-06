@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 interface NotificationProp {
   _id: string;
-  message: string;
+  content: string;
   isRead: boolean;
   createdAt: string;
 }
@@ -44,7 +44,7 @@ function Notification({ noti }: Props) {
   return (
     <div
       onClick={() => markAsRead("notification", noti._id)}
-      className={`relative flex w-full items-start gap-4 p-4 border-b border-gray-100 transition-colors duration-200 hover:bg-gray-50 
+      className={`relative flex w-full items-center gap-4 p-4 border-b border-gray-100 transition-colors duration-200 hover:bg-gray-50 
       ${!noti.isRead ? "bg-blue-50/60" : "bg-white"}`}
     >
       {/* Avatar Image */}
@@ -62,7 +62,7 @@ function Notification({ noti }: Props) {
         className="flex-1 cursor-pointer min-w-0"
       >
         <p className={`text-sm leading-relaxed ${!noti.isRead ? "text-gray-900 font-semibold" : "text-gray-600"}`}>
-          {noti.message}
+          {noti.content}
         </p>
         <span className="text-xs text-gray-400 mt-1 block">
           {updateTime(noti.createdAt)}

@@ -8,7 +8,7 @@ interface Props {
 }
 
 function ShowImage({ showImage, report, setShowImage }: Props) {
-  const { url } = useContext(StoreContext);
+  const { url, getImageUrl } = useContext(StoreContext);
   const [show, setShow] = useState<boolean>(showImage);
   return (
     <>
@@ -16,7 +16,7 @@ function ShowImage({ showImage, report, setShowImage }: Props) {
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
           <div className="bg-white p-4 rounded shadow-lg">
             <img
-              src={report.image}
+              src={getImageUrl(report.image)}
               alt="Facility Map"
               className="w-[80vw] h-[80vh]"
             />

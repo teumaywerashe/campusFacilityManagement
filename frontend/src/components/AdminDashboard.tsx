@@ -17,6 +17,7 @@ const AdminDashboard: React.FC = () => {
 
   useEffect(() => {
     getAllReports();
+    console.log(allReports);
   }, [allReports]);
 
   const filteredReports = allReports?.filter((rep) =>

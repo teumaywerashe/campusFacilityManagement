@@ -26,7 +26,7 @@ function DashboardDisplay({ rep, id, setSelectedImage }: Props) {
 
   const [newComment, setNewComment] = useState<string>("");
   const [showComments, setShowComments] = useState<boolean>(false);
-  const { url, getReport, updateTime, token } = useContext(StoreContext);
+  const { url, getReport, updateTime, token, getImageUrl } = useContext(StoreContext);
 
   const handleSendComment = async (reportId: string): Promise<void> => {
     if (!newComment.trim()) return;
@@ -55,13 +55,13 @@ function DashboardDisplay({ rep, id, setSelectedImage }: Props) {
       {/* Card Image */}
       <div
         className="relative h-56 w-full bg-gray-200 overflow-hidden cursor-pointer"
-        onClick={() => setSelectedImage(rep.image)}
+        onClick={() => setSelectedImage(getImageUrl(rep.image) || null)}
       >
         {rep.image ? (
           <>
             <img
               className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-500"
-              src={rep.image}
+              src={getImageUrl(rep.image)}
               alt="Report"
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">

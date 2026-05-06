@@ -18,7 +18,7 @@ interface Props {
 }
 
 function AllReportDisplay({ report }: Props) {
-  const { url, role, markAsRead, token, deleteIssue, updateTime } =
+  const { url, role, markAsRead, token, deleteIssue, updateTime, getImageUrl } =
     useContext(StoreContext);
 
   const [showImage, setShowImage] = useState<boolean>(false);
@@ -86,7 +86,7 @@ function AllReportDisplay({ report }: Props) {
               <>
                 <img
                   className="w-full h-full object-cover transition-transform duration-300 group-hover/img:scale-110"
-                  src={report.image}
+                  src={getImageUrl(report.image)}
                   alt="Evidence"
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">

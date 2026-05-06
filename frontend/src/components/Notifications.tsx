@@ -22,8 +22,8 @@ const Notifications: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full sm:ml-64 ml-0 bg-gray-50/50 p-4 md:p-8 font-sans">
-      <div className="max-w-full mx-auto">
+    <div className="min-h-screen w-full lg:ml-64 bg-gray-50/50 p-4 md:p-8 font-sans">
+      <div className="w-full">
 
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
