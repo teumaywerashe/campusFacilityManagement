@@ -26,7 +26,6 @@ export const createIssue = async (req, res) => {
         }
         // Upload buffer to Cloudinary and get back the secure URL
         const imageUrl = await uploadToCloudinary(req.file.buffer);
-        console.log("[Cloudinary] Uploaded URL:", imageUrl);
         const issue = await Issue.create({ image: imageUrl, userId, content });
         await Notification.create({
             receiverId: userId,
