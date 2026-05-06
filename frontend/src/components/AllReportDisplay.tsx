@@ -25,6 +25,11 @@ function AllReportDisplay({ report }: Props) {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [status, setStatus] = useState<string>(report.status || "Pending");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const content = (report as any).content as string ?? "";
+  const isLong = content.length > 60;
+  const displayContent = isLong && !expanded ? content.slice(0, 60) + "..." : content;
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -111,11 +116,16 @@ function AllReportDisplay({ report }: Props) {
               <span className="w-2 h-2 rounded-full bg-blue-500"></span>
             )}
           </div>
-          <p
-            className="text-sm text-gray-500 line-clamp-1 mt-0.5"
-            title={(report as any).content}
-          >
-            {(report as any).content}
+          <p className="text-sm text-gray-500 mt-0.5">
+            {displayContent}
+            {isLong && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setExpanded(!expanded); }}
+                className="ml-1 text-blue-500 hover:text-blue-700 font-medium text-xs"
+              >
+                {expanded ? "see less" : "see more"}
+              </button>
+            )}
           </p>
         </div>
 

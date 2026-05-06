@@ -1,8 +1,23 @@
 import { Response } from "express";
+import { Readable } from "stream";
 import { AuthRequest } from "../middleWares/auth.js";
 import Issue from "../models/Issue.js";
 import Notification from "../models/Notification.js";
 import cloudinary from "../config/cloudinary.js";
+
+/** Upload a buffer to Cloudinary and return the secure URL */
+const uploadToCloudinary = (buffer: Buffer): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: "campus-facility-reports" },
+      (error, result) => {
+        if (error || !result) return reject(error ?? new Error("Upload failed"));
+        resolve(result.secure_url);
+      }
+    );
+    Readable.from(buffer).pipe(uploadStream);
+  });
+};
 
 export const createIssue = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
@@ -17,8 +32,9 @@ export const createIssue = async (req: AuthRequest, res: Response): Promise<void
       return;
     }
 
-    // Cloudinary returns the full URL in req.file.path and public_id in req.file.filename
-    const imageUrl = req.file.path;
+    // Upload buffer to Cloudinary and get back the secure URL
+    const imageUrl = await uploadToCloudinary(req.file.buffer);
+    console.log("[Cloudinary] Uploaded URL:", imageUrl);
 
     const issue = await Issue.create({ image: imageUrl, userId, content });
 
@@ -41,7 +57,8 @@ export const getAllIssues = async (req: AuthRequest, res: Response): Promise<voi
       .sort({ createdAt: -1 })
       .populate("userId", "name email")
       .populate({ path: "comments", populate: { path: "userId", select: "name email" } });
-    res.status(200).json({ success: true, issues });
+  console.log(issues)
+      res.status(200).json({ success: true, issues });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, msg: "server error" });

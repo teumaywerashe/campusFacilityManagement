@@ -1,10 +1,18 @@
+import { Readable } from "stream";
 import Issue from "../models/Issue.js";
 import Notification from "../models/Notification.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import cloudinary from "../config/cloudinary.js";
+/** Upload a buffer to Cloudinary and return the secure URL */
+const uploadToCloudinary = (buffer) => {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream({ folder: "campus-facility-reports" }, (error, result) => {
+            if (error || !result)
+                return reject(error ?? new Error("Upload failed"));
+            resolve(result.secure_url);
+        });
+        Readable.from(buffer).pipe(uploadStream);
+    });
+};
 export const createIssue = async (req, res) => {
     try {
         const { userId, content } = req.body;
@@ -16,7 +24,10 @@ export const createIssue = async (req, res) => {
             res.status(400).json({ success: false, msg: "image is required" });
             return;
         }
-        const issue = await Issue.create({ image: req.file.filename, userId, content });
+        // Upload buffer to Cloudinary and get back the secure URL
+        const imageUrl = await uploadToCloudinary(req.file.buffer);
+        console.log("[Cloudinary] Uploaded URL:", imageUrl);
+        const issue = await Issue.create({ image: imageUrl, userId, content });
         await Notification.create({
             receiverId: userId,
             content: `We have received your report: "${content.substring(0, 20)}...". Thank you.`,
@@ -80,13 +91,19 @@ export const deleteIssue = async (req, res) => {
             res.status(404).json({ success: false, msg: "issue not found" });
             return;
         }
-        const filePath = path.join(__dirname, "..", "uploads", issue.image);
-        fs.unlink(filePath, (err) => {
-            if (err)
-                console.log("File not found or could not be deleted:", err);
-            else
-                console.log("File deleted successfully");
-        });
+        // Delete image from Cloudinary using the public_id extracted from the URL
+        if (issue.image) {
+            try {
+                // Extract public_id from Cloudinary URL (e.g. "campus-facility-reports/abc123")
+                const urlParts = issue.image.split("/");
+                const folderAndFile = urlParts.slice(-2).join("/");
+                const publicId = folderAndFile.replace(/\.[^/.]+$/, ""); // strip extension
+                await cloudinary.uploader.destroy(publicId);
+            }
+            catch (err) {
+                console.log("Could not delete image from Cloudinary:", err);
+            }
+        }
         res.status(200).json({ success: true, msg: "removed", issue });
     }
     catch (error) {

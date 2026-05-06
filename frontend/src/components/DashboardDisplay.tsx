@@ -26,6 +26,11 @@ function DashboardDisplay({ rep, id, setSelectedImage }: Props) {
 
   const [newComment, setNewComment] = useState<string>("");
   const [showComments, setShowComments] = useState<boolean>(false);
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const content = (rep as any).content as string ?? "";
+  const isLong = content.length > 60;
+  const displayContent = isLong && !expanded ? content.slice(0, 60) + "..." : content;
   const { url, getReport, updateTime, token, getImageUrl } = useContext(StoreContext);
 
   const handleSendComment = async (reportId: string): Promise<void> => {
@@ -92,8 +97,16 @@ function DashboardDisplay({ rep, id, setSelectedImage }: Props) {
           </span>
         </div>
 
-        <p className="text-gray-700 text-sm leading-relaxed mb-4 line-clamp-3">
-          {(rep as any).content}
+        <p className="text-gray-700 text-sm leading-relaxed mb-4">
+          {displayContent}
+          {isLong && (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="ml-1 text-blue-500 hover:text-blue-700 font-medium text-xs"
+            >
+              {expanded ? "see less" : "see more"}
+            </button>
+          )}
         </p>
 
         <div className="mt-auto pt-4 border-t border-gray-full h-full flex items-center text-xs text-gray-400 justify-between">
